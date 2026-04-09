@@ -3,7 +3,7 @@ venv/
 .venv/
 
 # Ignore the junk folder
-"dont need"/
+dont\ need/
 
 # Ignore Python cache
 __pycache__/
