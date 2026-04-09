@@ -1,15 +1,10 @@
-# 1. Ignore absolutely everything
-/*
+# Ignore the virtual environments
+venv/
+.venv/
 
-# 2. But let these specific files through
-!dataprofiler.py
-!dynamic.py
-!dataset_*.npy
-!.gitignore
-!README.md
-
-# Ignore the trash folder
+# Ignore the junk folder
 "dont need"/
 
-# 3. Allow these specifically if you want them back later
-# !driftbench/
+# Ignore Python cache
+__pycache__/
+*.pyc
