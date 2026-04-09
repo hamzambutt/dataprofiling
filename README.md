@@ -1,63 +1,60 @@
-# driftbench
+Data Profiling & Drift Detection Toolkit
+A high-performance Python utility designed to dynamically profile datasets and prepare them for drift detection. This project is developed as part of my backend development internship, focusing on automating data quality checks and statistical analysis.
 
-Benchmarking framework for generating high-dimensional synthetic drifted data and evaluating
-models.
+🚀 Features
+Dynamic Data Profiling: Automatically handles .npy (DriftBench) and .csv formats.
 
-The corresponding open-access paper, [Edgar Wolf and Tobias Windisch (2025), A method to benchmark high-dimensional 
-process drift detection](https://link.springer.com/article/10.1007/s10845-025-02590-9), describes the
-method in detail.
+Metadata Extraction: Instantly identifies row/column counts and individual column data types.
 
-To run the benchmarks, execute:
+Automated Statistics: Computes mean, median, min, max, and customizable percentiles.
 
-```python
+Quality Metrics: Calculates null percentages and unique value counts to assess data "health."
 
-python run_benchmarks.py
-```
+CI/CD Integrated: Automated code quality enforcement using Flake8 via GitHub Actions.
 
+📂 Repository Structure
+Following standard Python package best practices:
 
-To visualize the model performance, run
+Plaintext
+dataprofiling/
+├── .github/workflows/    # CI/CD Pipeline (Flake8 Linting)
+├── data/                 # Dataset storage (.npy files)
+├── src/                  # Source Code
+│   ├── dataprofiler.py   # Core profiling logic
+│   └── dynamic.py        # Dynamic data loading and handling
+├── .gitignore            # Version control exclusions
+├── README.md             # Project documentation
+└── requirements.txt      # Project dependencies
+🛠️ Installation & Setup
+Clone the repository:
 
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+Bash
+git clone https://github.com/hamzambutt/dataprofiling.git
+cd dataprofiling
+Set up a Virtual Environment:
+
+Bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+Install Dependencies:
+
+Bash
+pip install -r requirements.txt
+📊 Usage
+To profile a dataset from the DriftBench suite, run the dynamic.py script:
+
+Python
+from src.dynamic import Profiling
 import numpy as np
 
-def plot_benchmark(df):
+# Load data
+data = np.load('data/dataset_1.npy')
+profiler = Profiling(data)
 
-    fig, axes = plt.subplots(ncols=3, figsize=(15, 5))
-    sns.boxplot(data=df, x="TAUC", y="Detector", hue='Data',  native_scale=True, ax=axes[0])
-    sns.boxplot(data=df, x="SoftTAUC", y="Detector", hue='Data', native_scale=True, ax=axes[1])
-    sns.boxplot(data=df, x="AUC", y="Detector", hue='Data', native_scale=True, ax=axes[2])
-    
-    for ax in axes[1:]:
-        ax.legend([])
-        ax.set_yticklabels([])
-    
-    axes[0].set_xlabel('TAUC')
-    axes[1].set_xlabel('sTAUC')
-    axes[2].set_xlabel('AUC')
-    for ax in axes:
-        ax.grid()
-        ax.set_ylabel('')
-    fig.tight_layout()
-    
-    return fig
+# Generate profile with custom percentiles
+stats = profiler.data_stats(p_list=[25, 50, 75])
+print(stats)
+🛡️ Code Quality (CI/CD)
+This project maintains strict adherence to PEP 8 standards. Every push to the main branch triggers an automated Flake8 linting check.
 
-df = pd.read_json('benchmarks.json') 
-fig = plot_benchmark(df)
-```
-
-## Citation
-Please cite [**driftbench**](https://github.com/edgarWolf/driftbench) if you use this framework in your publications:
-```bibtex
-@article{wolf_method_2025,
-	title = {A method to benchmark high-dimensional process drift detection},
-	issn = {1572-8145},
-	url = {https://doi.org/10.1007/s10845-025-02590-9},
-	doi = {10.1007/s10845-025-02590-9},
-	journal = {Journal of Intelligent Manufacturing},
-	author = {Wolf, Edgar and Windisch, Tobias},
-	year = {2025},
-}
-```
+Status: All builds are verified through GitHub Actions to ensure clean, readable, and maintainable code.
