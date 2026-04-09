@@ -17,7 +17,8 @@ class Profiling:
 
                 "datatype" : self.df.dtype,
 
-                "unique_count" : len(unique_values)
+                "unique_count" : len(unique_values),
+                "null_percentage": (np.isnan(self.df).mean() * 100)
                 },
 
             "summaray" : {
