@@ -1,5 +1,5 @@
 import os
-default_n_threads = 20  # noqa
+default_n_threads = 8  # noqa
 os.environ['OPENBLAS_NUM_THREADS'] = f"{default_n_threads}"  # noqa
 os.environ['MKL_NUM_THREADS'] = f"{default_n_threads}"
 os.environ['OMP_NUM_THREADS'] = f"{default_n_threads}"
