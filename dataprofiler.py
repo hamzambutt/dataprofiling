@@ -6,7 +6,7 @@ class Profiling:
     def __init__(self,df):
         self.df= np.array(df)
 
-    def data_stats(self, p_list=[25, 50, 75]):
+    def data_stats(self, p_list=[]):
         stats= {
         "mean" : np.mean(self.df),
        "median" : np.median(self.df),
