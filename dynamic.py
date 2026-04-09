@@ -1,10 +1,24 @@
 import pandas as pd
 import numpy as np
-
+import os
 
 class Profiling:
-    def __init__(self,df):
-        self.df= np.array(df)
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.df = self.load_data()
+
+    def load_data(self):
+        ext = os.path.splitext(self.file_path)[1].lower()
+        
+        if ext == '.csv':
+            return pd.read_csv(self.file_path)
+        elif ext == '.npy':
+            data = np.load(self.file_path)
+            return pd.DataFrame(data, columns=[f"feature_{i}" for i in range(data.shape[1])])
+        elif ext == '.parquet':
+            return pd.read_parquet(self.file_path)
+        else:
+            raise ValueError(f"Unsupported file format: {ext}")
 
     def data_stats(self, p_list=[]):
 
@@ -15,7 +29,7 @@ class Profiling:
                 "total_rows" : self.df.shape[0],
                 "total_columns" : self.df.shape[1],
 
-                "datatype" : self.df.dtype,
+                "column_types": self.df.dtypes.astype(str).to_dict(),
 
                 "unique_count" : len(unique_values),
                 "null_percentage": (np.isnan(self.df).mean() * 100)
@@ -36,7 +50,6 @@ class Profiling:
             stats[f"percentile_{p}"] = val
         return stats
 
-data = np.load('dataset_1.npy')
-profiler = Profiling(data)
+profiler = Profiling('dataset_2.npy')
 percentt=[25,50,75]
 print(profiler.data_stats(percentt))
