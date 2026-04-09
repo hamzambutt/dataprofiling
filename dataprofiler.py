@@ -7,12 +7,13 @@ class Profiling:
         self.df= np.array(df)
 
     def data_stats(self, p_list=[]):
-        stats= {
-        "mean" : np.mean(self.df),
-       "median" : np.median(self.df),
-        "min" : np.min(self.df),
-        "max" : np.max(self.df),
-        }
+
+        stats = {
+                "mean" : np.mean(self.df),
+                "median" : np.median(self.df),
+                "min" : np.min(self.df),
+                "max" : np.max(self.df)
+                }        
 
         p_values = np.percentile(self.df, p_list)
         
