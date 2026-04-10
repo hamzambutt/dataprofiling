@@ -11,27 +11,26 @@ class Profiling:
 
     def load_data(self):
         ext = os.path.splitext(self.file_path)[1].lower()
+        df = None
 
         if ext == '.csv':
-            return pd.read_csv(self.file_path)
+            df = pd.read_csv(self.file_path)
         elif ext == '.npy':
             data = np.load(self.file_path)
-            return pd.DataFrame(
-                data, columns=[
-                    f"feature_{i}" for i in range(
-                        data.shape[1])])
+            df = pd.DataFrame(
+                data, columns=[f"feature_{i}" for i in range(data.shape[1])])
         elif ext == '.parquet':
-            return pd.read_parquet(self.file_path)
+            df = pd.read_parquet(self.file_path)
         else:
             raise ValueError(f"Unsupported file format: {ext}")
 
-        for col in self.df.columns:
-            if df[col].type == 'object':
+        for col in df.columns:
+            if df[col].dtype == 'object':
                 try:
                     df[col] = pd.to_datetime(df[col], errors='ignore')
                 except (ValueError, TypeError):
                     pass
-        return self.df
+        return df
 
     def data_stats(self, p_list=[]):
         report = {}
@@ -45,7 +44,6 @@ class Profiling:
                 "unique_values": int(series.nunique())
             }
 
-            # Numeric Branch
             if pd.api.types.is_numeric_dtype(series):
                 if not clean_series.empty:
                     col_info.update({
@@ -61,7 +59,6 @@ class Profiling:
                     col_info.update(
                         {"mean": None, "median": None, "min": None, "max": None})
 
-            # Categorical Branch
             elif pd.api.types.is_object_dtype(series) or pd.api.types.is_string_dtype(series):
                 mode_res = series.mode()
                 col_info.update({
@@ -69,7 +66,6 @@ class Profiling:
                     "freq": int(series.value_counts().iloc[0]) if not series.empty else 0
                 })
 
-            # DateTime Branch
             elif pd.api.types.is_datetime64_any_dtype(series):
                 if not clean_series.empty:
                     col_info.update({
@@ -84,5 +80,6 @@ class Profiling:
         return report
 
     def save_report(self, report, output_path):
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, 'w') as f:
             json.dump(report, f, indent=4)
