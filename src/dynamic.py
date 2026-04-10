@@ -26,35 +26,47 @@ class Profiling:
 
     def data_stats(self, p_list=[]):
 
-        unique_values = np.unique(self.df)
-
-        stats = {
-            "metadata": {
-                "total_rows": self.df.shape[0],
-                "total_columns": self.df.shape[1],
-
-                "column_types": self.df.dtypes.astype(str).to_dict(),
-
-                "unique_count": len(unique_values),
-                "null_percentage": (np.isnan(self.df).mean() * 100)
-            },
-
-            "summaray": {
-
-                "mean": np.mean(self.df),
-                "median": np.median(self.df),
-                "min": np.min(self.df),
-                "max": np.max(self.df)
+        report = {}
+        for col in self.df.columns:
+            series = self.df[col]
+            col_info = {
+                    "dtype": str(series.dtype),
+                    "missing_values": int(series.isnull().mean()*100),
+                    "unique_values": series.nunique()
             }
-        }
+            # Numeric Branch
+            if pd.api.types.is_numeric_dtype(series):
+                col_info.update({
+                    "mean": series.mean(),
+                    "median": series.median(),
+                    "min": series.min(),
+                    "max": series.max()
+                })
+                p_values = np.percentile(series.dropna(), p_list)
+                for p, val in zip(p_list, p_values):
+                    col_info[f"percentile_{p}"] = val
+            # Categorical Branch
+            elif pd.api.types.is_string_dtype(series):
+                col_info.update ({
+                    "top": series.mode()[0],
+                    "freq": series.value_counts().iloc[0]
+                })
+                # DateTime Branch
+            elif pd.api.types.is_datetime64_any_dtype(series):
+                col_info.update({
+                    "min": series.min(),
+                    "max": series.max(),
+                    "range": series.max() - series.min()
+                })
+            report[col] = col_info
+        return report
 
-        p_values = np.percentile(self.df, p_list)
 
-        for p, val in zip(p_list, p_values):
-            stats[f"percentile_{p}"] = val
-        return stats
-
-
-profiler = Profiling('dataset_2.npy')
+profiler = Profiling('data/dataset_2.npy')
 percentt = [25, 50, 75]
-print(profiler.data_stats(percentt))
+#print(profiler.data_stats(percentt))
+
+import json
+
+results = profiler.data_stats(percentt)
+print(json.dumps(results, indent=4))
