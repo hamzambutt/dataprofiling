@@ -82,3 +82,7 @@ class Profiling:
 
             report[col] = col_info
         return report
+
+    def save_report(self, report, output_path):
+        with open(output_path, 'w') as f:
+            json.dump(report, f, indent=4)
