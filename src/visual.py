@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 import os
 
 
@@ -100,4 +101,42 @@ class DataVisualizer:
 
         plt.tight_layout()
         plt.savefig(f"reports/plots/{col_name}_time.png")
+        plt.close()
+    
+    def drift_plot(self, expected, actual, col_1, col_2, psi, exp_p, act_p):
+        """Generates a PSI plot comparing expected vs actual distributions."""
+        plt.figure(figsize=(12, 6))
+
+        plt.subplot(1, 2, 1)
+        plt.hist(expected, bins=30, alpha=0.5, label='Expected', color='blue', density=True)
+        plt.hist(actual, bins=30, alpha=0.5, label='Actual', color='orange', density=True)
+
+        # drift status based on PSI thresholds
+        if psi < 0.1:
+            status, color = "No significant change", "green"
+        elif 0.1 <= psi < 0.25:
+            status, color = "Moderate change", "orange"
+        else:
+            status, color = "Significant change", "red"
+
+        plt.title(f"PSI Plot for {col_1} and {col_2}")
+        plt.xlabel("Value")
+        plt.ylabel("Density")
+        plt.text(0.05, 0.95, f"PSI: {psi:.4f}\nStatus: {status}", transform=plt.gca().transAxes)
+        plt.legend()
+
+        # Bar plot of expected vs actual proportions
+        plt.subplot(1, 2, 2)
+        x = np.arange(len(exp_p))
+        plt.bar(x - 0.2, exp_p, width=0.4, color='blue', alpha=0.7, label='Expected %')
+        plt.bar(x + 0.2, act_p, width=0.4, color='orange', alpha=0.7, label='Actual %')
+        
+        plt.title("Bin-wise Proportions used in PSI")
+        plt.xlabel("Bucket Number")
+        plt.ylabel("Percentage of Data")
+        plt.xticks(x, [f"Bin {i+1}" for i in range(len(exp_p))], rotation=45)
+        plt.legend()
+
+        plt.tight_layout()
+        plt.savefig(f"reports/plots/{col_1}_psi.png")
         plt.close()

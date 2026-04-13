@@ -83,3 +83,23 @@ class Profiling:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, 'w') as f:
             json.dump(report, f, indent=4)
+
+    def psi_cal(self, expected_col, actual_col, bins):
+
+        expected_col = expected_col.dropna()
+        actual_col = actual_col.dropna()
+        breakpoints = np.unique(np.percentile(expected_col, np.linspace(0, 100, bins + 1)))
+
+        expected_counts, _ = np.histogram(expected_col.dropna(), bins=breakpoints)
+        actual_counts, _ = np.histogram(actual_col.dropna(), bins=breakpoints)
+
+        expected_percents = expected_counts / len(expected_col.dropna())
+        actual_percents = actual_counts / len(actual_col.dropna())
+
+        # 1e-10 to prevent division by zero and log of zero
+        expected_percents += 1e-10
+        actual_percents += 1e-10
+
+        psi_vals = np.sum((expected_percents - actual_percents) * np.log(expected_percents / actual_percents))
+        
+        return psi_vals, expected_percents, actual_percents
