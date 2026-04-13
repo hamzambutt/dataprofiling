@@ -88,9 +88,11 @@ class Profiling:
 
         expected_col = expected_col.dropna()
         actual_col = actual_col.dropna()
-        breakpoints = np.unique(np.percentile(expected_col, np.linspace(0, 100, bins + 1)))
+        breakpoints = np.unique(np.percentile(
+            expected_col, np.linspace(0, 100, bins + 1)))
 
-        expected_counts, _ = np.histogram(expected_col.dropna(), bins=breakpoints)
+        expected_counts, _ = np.histogram(
+            expected_col.dropna(), bins=breakpoints)
         actual_counts, _ = np.histogram(actual_col.dropna(), bins=breakpoints)
 
         expected_percents = expected_counts / len(expected_col.dropna())
@@ -100,6 +102,7 @@ class Profiling:
         expected_percents += 1e-10
         actual_percents += 1e-10
 
-        psi_vals = np.sum((expected_percents - actual_percents) * np.log(expected_percents / actual_percents))
-        
+        psi_vals = np.sum((expected_percents - actual_percents)
+                          * np.log(expected_percents / actual_percents))
+
         return psi_vals, expected_percents, actual_percents

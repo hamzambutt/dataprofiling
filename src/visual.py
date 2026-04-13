@@ -33,8 +33,8 @@ class DataVisualizer:
 
         col_metrics = self.stats.get(col_name, {})
 
-        fig, (ax_hist, ax_box) = plt.subplots(2, 1, figsize=(8, 8),
-                                              gridspec_kw={"height_ratios": (.8, .2)})
+        fig, (ax_hist, ax_box) = plt.subplots(2, 1, figsize=(
+            8, 8), gridspec_kw={"height_ratios": (.8, .2)})
 
         # Histogram
         ax_hist.hist(data, bins=30, color='skyblue',
@@ -102,14 +102,16 @@ class DataVisualizer:
         plt.tight_layout()
         plt.savefig(f"reports/plots/{col_name}_time.png")
         plt.close()
-    
+
     def drift_plot(self, expected, actual, col_1, col_2, psi, exp_p, act_p):
         """Generates a PSI plot comparing expected vs actual distributions."""
         plt.figure(figsize=(12, 6))
 
         plt.subplot(1, 2, 1)
-        plt.hist(expected, bins=30, alpha=0.5, label='Expected', color='blue', density=True)
-        plt.hist(actual, bins=30, alpha=0.5, label='Actual', color='orange', density=True)
+        plt.hist(expected, bins=30, alpha=0.5,
+                 label='Expected', color='blue', density=True)
+        plt.hist(actual, bins=30, alpha=0.5, label='Actual',
+                 color='orange', density=True)
 
         # drift status based on PSI thresholds
         if psi < 0.1:
@@ -122,15 +124,21 @@ class DataVisualizer:
         plt.title(f"PSI Plot for {col_1} and {col_2}")
         plt.xlabel("Value")
         plt.ylabel("Density")
-        plt.text(0.05, 0.95, f"PSI: {psi:.4f}\nStatus: {status}", transform=plt.gca().transAxes)
+        plt.text(
+            0.05,
+            0.95,
+            f"PSI: {psi:.4f}\nStatus: {status}",
+            transform=plt.gca().transAxes)
         plt.legend()
 
         # Bar plot of expected vs actual proportions
         plt.subplot(1, 2, 2)
         x = np.arange(len(exp_p))
-        plt.bar(x - 0.2, exp_p, width=0.4, color='blue', alpha=0.7, label='Expected %')
-        plt.bar(x + 0.2, act_p, width=0.4, color='orange', alpha=0.7, label='Actual %')
-        
+        plt.bar(x - 0.2, exp_p, width=0.4, color='blue',
+                alpha=0.7, label='Expected %')
+        plt.bar(x + 0.2, act_p, width=0.4, color='orange',
+                alpha=0.7, label='Actual %')
+
         plt.title("Bin-wise Proportions used in PSI")
         plt.xlabel("Bucket Number")
         plt.ylabel("Percentage of Data")

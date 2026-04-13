@@ -24,31 +24,44 @@ else:
     profiler2.save_report(report2, "reports/stats_summary2.json")
     print("Stats report saved.")
 
-    #print("Available columns:", profiler.df.columns.tolist())
+    # print("Available columns:", profiler.df.columns.tolist())
 
    # Visualization
     viz = DataVisualizer(df=profiler.df, stats=report)
-    #viz.save_plots()
-    #print("Plots saved to reports/plots/")
+    # viz.save_plots()
+    # print("Plots saved to reports/plots/")
 
     # loop through all columns
     for col in profiler.df.columns:
-        if pd.api.types.is_numeric_dtype(profiler.df[col]) and pd.api.types.is_numeric_dtype(profiler2.df[col]):
+        if pd.api.types.is_numeric_dtype(
+                profiler.df[col]) and pd.api.types.is_numeric_dtype(
+                profiler2.df[col]):
 
             # Columns Extraction
             expected_col = profiler2.df[col]
             actual_col = profiler.df[col]
-            
+
             # PSI Calculation
-            psi_score, exp_p, act_p = profiler.psi_cal(expected_col, actual_col, bins=10)
+            psi_score, exp_p, act_p = profiler.psi_cal(
+                expected_col, actual_col, bins=10)
 
             # PSI Report
             if psi_score < 0.1:
-                print(f"PSI Score: {psi_score:.4f} - No significant change detected.")
+                print(
+                    f"PSI Score: {psi_score:.4f} - No significant change detected.")
             elif 0.1 <= psi_score < 0.25:
-                print(f"PSI Score: {psi_score:.4f} - Moderate change detected.")
-            else:        
-                print(f"PSI Score: {psi_score:.4f} - Significant change detected.")
+                print(
+                    f"PSI Score: {psi_score:.4f} - Moderate change detected.")
+            else:
+                print(
+                    f"PSI Score: {psi_score:.4f} - Significant change detected.")
 
             # Drift Plot
-            viz.drift_plot(expected_col, actual_col, f"{col}_baseline", f"{col}_current", psi_score, exp_p, act_p)
+            viz.drift_plot(
+                expected_col,
+                actual_col,
+                f"{col}_baseline",
+                f"{col}_current",
+                psi_score,
+                exp_p,
+                act_p)
