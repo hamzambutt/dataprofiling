@@ -17,19 +17,26 @@ class Profiling:
             df = pd.read_csv(self.file_path)
         elif ext == '.npy':
             data = np.load(self.file_path)
-            df = pd.DataFrame(
-                data, columns=[f"feature_{i}" for i in range(data.shape[1])])
+            df = pd.DataFrame(data) 
         elif ext == '.parquet':
             df = pd.read_parquet(self.file_path)
         else:
             raise ValueError(f"Unsupported file format: {ext}")
 
+        # Dynamic Naming
+        if isinstance(df.columns, pd.RangeIndex) or pd.api.types.is_integer_dtype(df.columns):
+            df.columns = [f"feature_{i}" for i in range(df.shape[1])]
+        else:
+            df.columns = df.columns.astype(str).str.strip()
+
+        # 3. Clean up date formats
         for col in df.columns:
             if df[col].dtype == 'object':
                 try:
                     df[col] = pd.to_datetime(df[col], errors='ignore')
                 except (ValueError, TypeError):
                     pass
+                    
         return df
 
     def data_stats(self, p_list=[]):
