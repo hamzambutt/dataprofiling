@@ -10,7 +10,7 @@ class Profiling:
             "mean": np.mean(self.df),
             "median": np.median(self.df),
             "min": np.min(self.df),
-            "max": np.max(self.df)
+            "max": np.max(self.df),
         }
         p_values = np.percentile(self.df, p_list)
         for p, val in zip(p_list, p_values):
@@ -18,7 +18,7 @@ class Profiling:
         return stats
 
 
-data = np.load('dataset_1.npy')
+data = np.load("dataset_1.npy")
 profiler = Profiling(data)
 percentt = [25, 50, 75]
 print(profiler.data_stats(percentt))

@@ -23,7 +23,9 @@ class DataVisualizer:
                 self._plot_datetime(series, col_name)
 
             # Categorical Branch
-            elif pd.api.types.is_object_dtype(series) or pd.api.types.is_string_dtype(series):
+            elif pd.api.types.is_object_dtype(
+                series
+            ) or pd.api.types.is_string_dtype(series):
                 self._plot_categorical(series, col_name)
 
     def _plot_numeric(self, series, col_name):
@@ -33,28 +35,42 @@ class DataVisualizer:
 
         col_metrics = self.stats.get(col_name, {})
 
-        fig, (ax_hist, ax_box) = plt.subplots(2, 1, figsize=(
-            8, 8), gridspec_kw={"height_ratios": (.8, .2)})
+        fig, (ax_hist, ax_box) = plt.subplots(
+            2, 1, figsize=(8, 8), gridspec_kw={"height_ratios": (0.8, 0.2)}
+        )
 
         # Histogram
-        ax_hist.hist(data, bins=30, color='skyblue',
-                     edgecolor='black', alpha=0.7)
+        ax_hist.hist(
+            data, bins=30, color="skyblue", edgecolor="black", alpha=0.7
+        )
         mean_val = col_metrics.get("mean")
         median_val = col_metrics.get("median")
 
         if mean_val is not None:
-            ax_hist.axvline(mean_val, color='red', linestyle='--',
-                            label=f"Mean: {mean_val:.2f}")
+            ax_hist.axvline(
+                mean_val,
+                color="red",
+                linestyle="--",
+                label=f"Mean: {mean_val:.2f}",
+            )
         if median_val is not None:
-            ax_hist.axvline(median_val, color='green',
-                            linestyle=':', label=f"Median: {median_val:.2f}")
+            ax_hist.axvline(
+                median_val,
+                color="green",
+                linestyle=":",
+                label=f"Median: {median_val:.2f}",
+            )
 
         ax_hist.set_title(f"Distribution & Spread of {col_name}")
         ax_hist.set_ylabel("Frequency")
         ax_hist.legend()
 
-        ax_box.boxplot(data, vert=False, patch_artist=True,
-                       boxprops=dict(facecolor="lightcoral", color="black"))
+        ax_box.boxplot(
+            data,
+            vert=False,
+            patch_artist=True,
+            boxprops=dict(facecolor="lightcoral", color="black"),
+        )
         ax_box.set_xlabel("Value")
         ax_box.set_yticks([])
 
@@ -69,13 +85,17 @@ class DataVisualizer:
             return
 
         plt.figure(figsize=(10, 6))
-        plt.bar(top_10.index.astype(str), top_10.values,
-                color="mediumseagreen", edgecolor="black")
+        plt.bar(
+            top_10.index.astype(str),
+            top_10.values,
+            color="mediumseagreen",
+            edgecolor="black",
+        )
 
         plt.title(f"Top 10 Categories in {col_name}")
         plt.xlabel("Categories")
         plt.ylabel("Frequency")
-        plt.xticks(rotation=45, ha='right')
+        plt.xticks(rotation=45, ha="right")
 
         plt.tight_layout()
         plt.savefig(f"reports/plots/{col_name}_categorical.png")
@@ -91,8 +111,13 @@ class DataVisualizer:
         # Group by the date part and count
         counts = data.dt.date.value_counts().sort_index()
 
-        plt.plot(counts.index, counts.values,
-                 color='teal', marker='o', linestyle='-')
+        plt.plot(
+            counts.index,
+            counts.values,
+            color="teal",
+            marker="o",
+            linestyle="-",
+        )
 
         plt.title(f"Record Counts Over Time: {col_name}")
         plt.xlabel("Date")
@@ -108,18 +133,30 @@ class DataVisualizer:
         plt.figure(figsize=(12, 6))
 
         plt.subplot(1, 2, 1)
-        plt.hist(expected, bins=30, alpha=0.5,
-                 label='Expected', color='blue', density=True)
-        plt.hist(actual, bins=30, alpha=0.5, label='Actual',
-                 color='orange', density=True)
+        plt.hist(
+            expected,
+            bins=30,
+            alpha=0.5,
+            label="Expected",
+            color="blue",
+            density=True,
+        )
+        plt.hist(
+            actual,
+            bins=30,
+            alpha=0.5,
+            label="Actual",
+            color="orange",
+            density=True,
+        )
 
         # drift status based on PSI thresholds
         if psi < 0.1:
-            status, color = "No significant change", "green"
+            status = "No significant change"
         elif 0.1 <= psi < 0.25:
-            status, color = "Moderate change", "orange"
+            status = "Moderate change"
         else:
-            status, color = "Significant change", "red"
+            status = "Significant change"
 
         plt.title(f"PSI Plot for {col_1} and {col_2}")
         plt.xlabel("Value")
@@ -128,16 +165,29 @@ class DataVisualizer:
             0.05,
             0.95,
             f"PSI: {psi:.4f}\nStatus: {status}",
-            transform=plt.gca().transAxes)
+            transform=plt.gca().transAxes,
+        )
         plt.legend()
 
         # Bar plot of expected vs actual proportions
         plt.subplot(1, 2, 2)
         x = np.arange(len(exp_p))
-        plt.bar(x - 0.2, exp_p, width=0.4, color='blue',
-                alpha=0.7, label='Expected %')
-        plt.bar(x + 0.2, act_p, width=0.4, color='orange',
-                alpha=0.7, label='Actual %')
+        plt.bar(
+            x - 0.2,
+            exp_p,
+            width=0.4,
+            color="blue",
+            alpha=0.7,
+            label="Expected %",
+        )
+        plt.bar(
+            x + 0.2,
+            act_p,
+            width=0.4,
+            color="orange",
+            alpha=0.7,
+            label="Actual %",
+        )
 
         plt.title("Bin-wise Proportions used in PSI")
         plt.xlabel("Bucket Number")
@@ -147,4 +197,24 @@ class DataVisualizer:
 
         plt.tight_layout()
         plt.savefig(f"reports/plots/{col_1}_psi.png")
+        plt.close()
+
+    def chi_plot(self, col_name, expected_series, actual_series):
+        expected_counts = expected_series.value_counts()
+        actual_counts = actual_series.value_counts()
+
+        expected_counts.index = expected_counts.index.astype(str)
+        actual_counts.index = actual_counts.index.astype(str)
+
+        df_plot = pd.DataFrame(
+            {"Expected": expected_counts, "Actual": actual_counts}
+        ).fillna(0)
+
+        df_plot.plot(kind="bar", figsize=(10, 6), color=["blue", "orange"])
+        plt.title(f"Chi-Squared Distribution for {col_name}")
+        plt.xlabel("Categories")
+        plt.ylabel("Count")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig(f"reports/plots/{col_name}_chi.png")
         plt.close()
