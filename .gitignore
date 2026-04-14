@@ -10,7 +10,7 @@ __pycache__/
 *.pyc
 
 # Ignore generated plots and reports
-reports/plots/
+#reports/plots/
 reports/*.json
 
 # Ignore Python environments and cache
