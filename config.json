@@ -1,0 +1,12 @@
+{
+    "datapaths": {
+        "baseline": "data/batch_1.csv",
+        "current": "data/batch_3.csv"
+    },
+    "threshold":{
+        "psi_limit": 0.2,
+        "psi_moderate_limit": 0.25,
+        "chi_p_value": 0.05,
+        "percentile": [25, 50, 75]
+    }
+}

@@ -1,0 +1,532 @@
+[
+    {
+        "column": "ExterCond",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.4062,
+        "P-Value": 0.2481,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Exterior1st",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 9.7432,
+        "P-Value": 0.7807,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtHalfBath",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "LotFrontage",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 888.9972,
+        "P-Value": 0.0,
+        "Status": "Significant change detected."
+    },
+    {
+        "column": "MSSubClass",
+        "Method": "PSI",
+        "PSI Score": 1.8997,
+        "Status": "Significant Distribution."
+    },
+    {
+        "column": "BsmtCond",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 2.2603,
+        "P-Value": 0.5202,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "2ndFlrSF",
+        "Method": "PSI",
+        "PSI Score": 0.0032,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "Heating",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 4.4324,
+        "P-Value": 0.489,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtFinType1",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.1038,
+        "P-Value": 0.4033,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "HeatingQC",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.8629,
+        "P-Value": 0.2096,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtFinType2",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 12.2852,
+        "P-Value": 0.0311,
+        "Status": "Significant change detected."
+    },
+    {
+        "column": "YearBuilt",
+        "Method": "PSI",
+        "PSI Score": 0.0308,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "YrSold",
+        "Method": "PSI",
+        "PSI Score": 0.0034,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "MasVnrArea",
+        "Method": "PSI",
+        "PSI Score": 0.0202,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GrLivArea",
+        "Method": "PSI",
+        "PSI Score": 0.0166,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "RoofStyle",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 8.0931,
+        "P-Value": 0.1512,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "GarageArea",
+        "Method": "PSI",
+        "PSI Score": 0.0199,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GarageType",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 2.8277,
+        "P-Value": 0.7265,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtQual",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.6574,
+        "P-Value": 0.3009,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtFinSF2",
+        "Method": "PSI",
+        "PSI Score": 0.0002,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "ExterQual",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.3976,
+        "P-Value": 0.9407,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Condition1",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.4026,
+        "P-Value": 0.7138,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "1stFlrSF",
+        "Method": "PSI",
+        "PSI Score": 0.0128,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "MoSold",
+        "Method": "PSI",
+        "PSI Score": 0.0208,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "HouseStyle",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 7.4967,
+        "P-Value": 0.3791,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "LowQualFinSF",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "OpenPorchSF",
+        "Method": "PSI",
+        "PSI Score": 0.0069,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "BldgType",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.4424,
+        "P-Value": 0.8368,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "HalfBath",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "Fence",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.0728,
+        "P-Value": 0.7837,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtFinSF1",
+        "Method": "PSI",
+        "PSI Score": 0.0058,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "Exterior2nd",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 8.5365,
+        "P-Value": 0.8596,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "KitchenQual",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.8729,
+        "P-Value": 0.832,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "LotConfig",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.4967,
+        "P-Value": 0.4784,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "OverallCond",
+        "Method": "PSI",
+        "PSI Score": 0.0072,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "TotalBsmtSF",
+        "Method": "PSI",
+        "PSI Score": 0.0546,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "LotShape",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.5202,
+        "P-Value": 0.1374,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "SaleCondition",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 4.4092,
+        "P-Value": 0.4921,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "SaleType",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 8.8765,
+        "P-Value": 0.3528,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtUnfSF",
+        "Method": "PSI",
+        "PSI Score": 0.0314,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "FullBath",
+        "Method": "PSI",
+        "PSI Score": 0.0001,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "Foundation",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.7627,
+        "P-Value": 0.8809,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Alley",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.0,
+        "P-Value": 1.0,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Utilities",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.0,
+        "P-Value": 1.0,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Neighborhood",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 28.3815,
+        "P-Value": 0.2017,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "RoofMatl",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.4335,
+        "P-Value": 0.6072,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Fireplaces",
+        "Method": "PSI",
+        "PSI Score": 0.0001,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "KitchenAbvGr",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GarageQual",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 4.5063,
+        "P-Value": 0.3418,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Id",
+        "Method": "PSI",
+        "PSI Score": 20.7233,
+        "Status": "Significant Distribution."
+    },
+    {
+        "column": "MiscFeature",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.8815,
+        "P-Value": 0.3903,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "PoolArea",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "PoolQC",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 2.3999,
+        "P-Value": 0.3012,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "BsmtFullBath",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "BsmtExposure",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.2475,
+        "P-Value": 0.355,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "OverallQual",
+        "Method": "PSI",
+        "PSI Score": 0.0137,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "LotArea",
+        "Method": "PSI",
+        "PSI Score": 0.0338,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "3SsnPorch",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "BedroomAbvGr",
+        "Method": "PSI",
+        "PSI Score": 0.0087,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "MSZoning",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.5583,
+        "P-Value": 0.4691,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "LandSlope",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.1921,
+        "P-Value": 0.2027,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "YearRemodAdd",
+        "Method": "PSI",
+        "PSI Score": 0.0273,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "FireplaceQu",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.8706,
+        "P-Value": 0.7595,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "LandContour",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 1.2315,
+        "P-Value": 0.7455,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "GarageCond",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 2.243,
+        "P-Value": 0.6912,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "EnclosedPorch",
+        "Method": "PSI",
+        "PSI Score": 0.0016,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "MiscVal",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "Condition2",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 4.0051,
+        "P-Value": 0.5487,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "ScreenPorch",
+        "Method": "PSI",
+        "PSI Score": 0.0,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "MasVnrType",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.4592,
+        "P-Value": 0.1774,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "SalePrice",
+        "Method": "PSI",
+        "PSI Score": 0.0267,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GarageCars",
+        "Method": "PSI",
+        "PSI Score": 0.001,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GarageFinish",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.0191,
+        "P-Value": 0.9905,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "TotRmsAbvGrd",
+        "Method": "PSI",
+        "PSI Score": 0.0087,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "GarageYrBlt",
+        "Method": "PSI",
+        "PSI Score": 0.044,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "WoodDeckSF",
+        "Method": "PSI",
+        "PSI Score": 0.0233,
+        "Status": "Stable Distribution"
+    },
+    {
+        "column": "PavedDrive",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.4865,
+        "P-Value": 0.7841,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Electrical",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 5.504,
+        "P-Value": 0.2394,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Street",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.0,
+        "P-Value": 1.0,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "CentralAir",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 0.0769,
+        "P-Value": 0.7815,
+        "Status": "No significant change detected."
+    },
+    {
+        "column": "Functional",
+        "Method": "Chi-Squared",
+        "Chi-Squared Statistic": 3.1791,
+        "P-Value": 0.6724,
+        "Status": "No significant change detected."
+    }
+]

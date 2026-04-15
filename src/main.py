@@ -2,90 +2,104 @@ import os
 from dynamic import Profiling
 from visual import DataVisualizer
 import pandas as pd
+import json
 
-baseline_file = "data/batch_1.csv"
-expected_file = "data/batch_3_drifted.csv"
+with open("config.json", "r") as f:
+    config = json.load(f)
 
-if not os.path.exists(expected_file) or not os.path.exists(baseline_file):
+baseline_file = config["datapaths"]["baseline"]
+current_file = config["datapaths"]["current"]
+
+# Thresholds
+psi_ = config["threshold"]["psi_limit"]
+chi_p = config["threshold"]["chi_p_value"]
+psi_moderate = config["threshold"]["psi_moderate_limit"]
+percentiles = config["threshold"]["percentile"]
+
+if not os.path.exists(current_file) or not os.path.exists(baseline_file):
     print("Error: File not found!")
 else:
-    profiler = Profiling(baseline_file)
-    report = profiler.data_stats(p_list=[25, 50, 75])
+    baseline = Profiling(baseline_file)
+    report_base = baseline.data_stats(percentiles)
 
     # Save the JSON report
-    profiler.save_report(report, "reports/stats_summary.json")
+    baseline.save_report(report_base, "reports/base_file.json")
     print("Stats report saved.")
 
-    profiler2 = Profiling(expected_file)
-    report2 = profiler2.data_stats(p_list=[25, 50, 75])
+    current = Profiling(current_file)
+    report_current = current.data_stats(percentiles)
 
     # Save the JSON report
-    profiler2.save_report(report2, "reports/stats_summary2.json")
+    current.save_report(report_current, "reports/current_file.json")
     print("Stats report saved.")
 
     # print("Available columns:", profiler.df.columns.tolist())
 
     # Visualization
-    viz = DataVisualizer(df=profiler.df, stats=report)
-    viz.save_plots()
+    viz = DataVisualizer(df=baseline.df, stats=report_base)
+#    viz.save_plots()
 
-    # loop through all columns
-    for col in profiler.df.columns:
-        if pd.api.types.is_numeric_dtype(
-            profiler.df[col]
-        ) and pd.api.types.is_numeric_dtype(profiler2.df[col]):
+common_cols = set(baseline.df.columns).intersection(set(current.df.columns))
+drift_analysis = []
+# loop through all columns
+for col in common_cols:
+    result = {"column": col}
 
-            # Columns Extraction
-            expected_col = profiler2.df[col]
-            actual_col = profiler.df[col]
+    if pd.api.types.is_numeric_dtype(
+        baseline.df[col]
+    ) and pd.api.types.is_numeric_dtype(current.df[col]):
 
-            # PSI Calculation
-            psi_score, exp_p, act_p = profiler.psi_cal(
-                expected_col, actual_col, bins=10
-            )
+        # PSI Calculation
+        psi_score, exp_p, act_p = baseline.psi_cal(
+            current.df[col], baseline.df[col], bins=10
+        )
 
-            # PSI Report
-            if psi_score < 0.1:
-                print(
-                    f"PSI Score: {psi_score:.4f}"
-                    " No significant change detected."
-                )
-            elif 0.1 <= psi_score < 0.25:
-                print(
-                    f"PSI Score: {psi_score:.4f}"
-                    " Moderate change detected."
-                )
-            else:
-                print(
-                    f"PSI Score: {psi_score:.4f}"
-                    " Significant change detected."
-                )
-
+        # PSI Report
+        if psi_score < psi_:
+            status = "Stable Distribution"
+        elif psi_ <= psi_score < psi_moderate:
+            status = "Moderate Distribution."
         else:
-            chi_expected = profiler2.df[col]
-            chi_actual = profiler.df[col]
-            chi_, p_value = profiler.chi_cal(chi_expected, chi_actual)
-            if p_value < 0.05:
-                print(
-                    f"{col}Chi-Squared p-value: {p_value:.4f}"
-                    " - Significant change detected."
-                )
-            else:
-                print(
-                    f"Column: {col:<20} | Chi-Sq p-value: {p_value:.4f} - "
-                    "Significant change detected."
-                )
+            status = "Significant Distribution."
 
-            # Chi-Squared Report
-            chi_plt = viz.chi_plot(col, chi_expected, chi_actual)
+        result.update(
+            {
+                "Method": "PSI",
+                "PSI Score": round(psi_score, 4),
+                "Status": status,
+            }
+        )
 
-            # Drift Plot
-            viz.drift_plot(
-                expected_col,
-                actual_col,
+    else:
+        chi_, p_value = baseline.chi_cal(current.df[col], baseline.df[col])
+        if p_value < chi_p:
+            status = "Significant change detected."
+        else:
+            status = "No significant change detected."
+
+        result.update(
+            {
+                "Method": "Chi-Squared",
+                "Chi-Squared Statistic": round(chi_, 4),
+                "P-Value": round(p_value, 4),
+                "Status": status,
+            }
+        )
+    drift_analysis.append(result)
+
+with open("reports/drift_analysis.json", "w") as f:
+    json.dump(drift_analysis, f, indent=4)
+
+    # Chi-Squared Report
+#            chi_plt = viz.chi_plot(col, chi_current, chi_baseline)
+
+# Drift Plot
+"""            viz.drift_plot(
+                current_col,
+                baseline_col,
                 f"{col}_baseline",
                 f"{col}_current",
                 psi_score,
                 exp_p,
                 act_p,
-            )
+            )"""

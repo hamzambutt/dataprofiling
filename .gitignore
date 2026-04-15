@@ -11,7 +11,7 @@ __pycache__/
 
 # Ignore generated plots and reports
 #reports/plots/
-reports/*.json
+#reports/*.json
 
 # Ignore Python environments and cache
 __pycache__/
