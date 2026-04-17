@@ -19,4 +19,5 @@ jobs:
 
       - name: Run flake8
         # This will fail the build if there are style errors in the src folder
-        run: flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        run: flake8 src/ --count --show-source --statistics
+        # check all not selective

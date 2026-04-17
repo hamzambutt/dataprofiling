@@ -128,13 +128,13 @@ class DataVisualizer:
         plt.savefig(f"reports/plots/{col_name}_time.png")
         plt.close()
 
-    def drift_plot(self, expected, actual, col_1, col_2, psi, exp_p, act_p):
+    def drift_plot(self, baseline, current, col_1, col_2, psi, exp_p, act_p):
         """Generates a PSI plot comparing expected vs actual distributions."""
         plt.figure(figsize=(12, 6))
 
         plt.subplot(1, 2, 1)
         plt.hist(
-            expected,
+            baseline,
             bins=30,
             alpha=0.5,
             label="Expected",
@@ -142,7 +142,7 @@ class DataVisualizer:
             density=True,
         )
         plt.hist(
-            actual,
+            current,
             bins=30,
             alpha=0.5,
             label="Actual",
@@ -199,15 +199,15 @@ class DataVisualizer:
         plt.savefig(f"reports/plots/{col_1}_psi.png")
         plt.close()
 
-    def chi_plot(self, col_name, expected_series, actual_series):
-        expected_counts = expected_series.value_counts()
-        actual_counts = actual_series.value_counts()
+    def chi_plot(self, col_name, baseline_series, current_series):
+        current_counts = current_series.value_counts()
+        baseline_counts = baseline_series.value_counts()
 
-        expected_counts.index = expected_counts.index.astype(str)
-        actual_counts.index = actual_counts.index.astype(str)
+        baseline_counts.index = baseline_counts.index.astype(str)
+        current_counts.index = current_counts.index.astype(str)
 
         df_plot = pd.DataFrame(
-            {"Expected": expected_counts, "Actual": actual_counts}
+            {"Expected": baseline_counts, "Actual": current_counts}
         ).fillna(0)
 
         df_plot.plot(kind="bar", figsize=(10, 6), color=["blue", "orange"])

@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.stats import chi2_contingency
 import pandas as pd
 import os
 import json
@@ -18,6 +19,10 @@ class Profiling:
         elif ext == ".npy":
             data = np.load(self.file_path)
             df = pd.DataFrame(data)
+        elif ext == ".json":
+            with open(self.file_path, "r") as f:
+                data = json.load(f)
+            df = pd.DataFrame(data)
         elif ext == ".parquet":
             df = pd.read_parquet(self.file_path)
         else:
@@ -31,11 +36,13 @@ class Profiling:
         else:
             df.columns = df.columns.astype(str).str.strip()
 
-        # 3. Clean up date formats
+        # 3. Clean up date formats, fix str
         for col in df.columns:
-            if df[col].dtype == "object":
+            if df[col].dtype == "object" or pd.api.types.is_string_dtype(
+                df[col]
+            ):
                 try:
-                    df[col] = pd.to_datetime(df[col])
+                    df[col] = pd.to_datetime(df[col], format="mixed")
                 except (ValueError, TypeError, UserWarning):
                     pass
 
@@ -49,7 +56,8 @@ class Profiling:
 
             col_info = {
                 "dtype": str(series.dtype),
-                "missing_values": float(series.isnull().mean() * 100),
+                # fix this
+                "missing_values": float(series.isnull().sum()),
                 "unique_values": int(series.nunique()),
             }
 
@@ -115,10 +123,10 @@ class Profiling:
         with open(output_path, "w") as f:
             json.dump(report, f, indent=4)
 
-    def psi_cal(self, expected_col, actual_col, bins):
+    def psi_cal(self, baseline_col, current_col, bins):
 
-        expected_col = expected_col.dropna()
-        actual_col = actual_col.dropna()
+        expected_col = baseline_col.dropna()
+        actual_col = current_col.dropna()
         breakpoints = np.unique(
             np.percentile(expected_col, np.linspace(0, 100, bins + 1))
         )
@@ -142,11 +150,10 @@ class Profiling:
 
         return psi_vals, expected_percents, actual_percents
 
-    def chi_cal(self, expected_col, actual_col):
-        from scipy.stats import chi2_contingency
+    def chi_cal(self, baseline_col, current_col):
 
-        expected_counts = expected_col.value_counts(normalize=False)
-        actual_counts = actual_col.value_counts(normalize=False)
+        expected_counts = baseline_col.value_counts(normalize=False)
+        actual_counts = current_col.value_counts(normalize=False)
 
         expected_counts, actual_counts = expected_counts.align(
             actual_counts, fill_value=1e-5

@@ -1,0 +1,44 @@
+{
+    "Rented Bike Count": {
+        "drift count": 1
+    },
+    "Temperature(\u00b0C)": {
+        "drift count": 1
+    },
+    "Humidity(%)": {
+        "drift count": 1
+    },
+    "Seasons": {
+        "drift count": 1
+    },
+    "Holiday": {
+        "drift count": 1
+    },
+    "Wind speed (m/s)": {
+        "drift count": 1
+    },
+    "Rainfall(mm)": {
+        "drift count": 0
+    },
+    "Visibility (10m)": {
+        "drift count": 1
+    },
+    "Snowfall (cm)": {
+        "drift count": 1
+    },
+    "Hour": {
+        "drift count": 0
+    },
+    "Dew point temperature(\u00b0C)": {
+        "drift count": 1
+    },
+    "Functioning Day": {
+        "drift count": 1
+    },
+    "Solar Radiation (MJ/m2)": {
+        "drift count": 1
+    },
+    "Date": {
+        "drift count": 1
+    }
+}

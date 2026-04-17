@@ -1,754 +1,151 @@
 {
-    "Id": {
+    "Date": {
+        "dtype": "datetime64[ns]",
+        "missing_values": 0.0,
+        "unique_values": 73,
+        "min": "2018-01-03 00:00:00",
+        "max": "2018-12-04 00:00:00",
+        "range": "335 days 00:00:00"
+    },
+    "Rented Bike Count": {
         "dtype": "int64",
         "missing_values": 0.0,
-        "unique_values": 488,
-        "mean": 1216.5,
-        "median": 1216.5,
-        "min": 973.0,
-        "max": 1460.0,
-        "percentile_25": 1094.75,
-        "percentile_50": 1216.5,
-        "percentile_75": 1338.25
+        "unique_values": 938,
+        "mean": 502.56335616438355,
+        "median": 380.5,
+        "min": 0.0,
+        "max": 2807.0,
+        "percentile_25": 148.75,
+        "percentile_50": 380.5,
+        "percentile_75": 730.25
     },
-    "MSSubClass": {
-        "dtype": "float64",
-        "missing_values": 0.0,
-        "unique_values": 15,
-        "mean": 85.61987704918033,
-        "median": 75.0,
-        "min": 30.0,
-        "max": 285.0,
-        "percentile_25": 30.0,
-        "percentile_50": 75.0,
-        "percentile_75": 105.0
-    },
-    "MSZoning": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "top": "RL",
-        "freq": 391
-    },
-    "LotFrontage": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 1,
-        "top": "Wood",
-        "freq": 488
-    },
-    "LotArea": {
+    "Hour": {
         "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 415,
-        "mean": 10087.401639344262,
-        "median": 9530.5,
-        "min": 1477.0,
-        "max": 63887.0,
-        "percentile_25": 7500.0,
-        "percentile_50": 9530.5,
-        "percentile_75": 11500.0
-    },
-    "Street": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 2,
-        "top": "Pave",
-        "freq": 486
-    },
-    "Alley": {
-        "dtype": "object",
-        "missing_values": 94.26229508196722,
-        "unique_values": 2,
-        "top": "Grvl",
-        "freq": 16
-    },
-    "LotShape": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "Reg",
-        "freq": 320
-    },
-    "LandContour": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "Lvl",
-        "freq": 438
-    },
-    "Utilities": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 1,
-        "top": "AllPub",
-        "freq": 488
-    },
-    "LotConfig": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "top": "Inside",
-        "freq": 354
-    },
-    "LandSlope": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 3,
-        "top": "Gtl",
-        "freq": 462
-    },
-    "Neighborhood": {
-        "dtype": "object",
         "missing_values": 0.0,
         "unique_values": 24,
-        "top": "NAmes",
-        "freq": 76
+        "mean": 11.5,
+        "median": 11.5,
+        "min": 0.0,
+        "max": 23.0,
+        "percentile_25": 5.75,
+        "percentile_50": 11.5,
+        "percentile_75": 17.25
     },
-    "Condition1": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 8,
-        "top": "Norm",
-        "freq": 420
-    },
-    "Condition2": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "top": "Norm",
-        "freq": 484
-    },
-    "BldgType": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "top": "1Fam",
-        "freq": 406
-    },
-    "HouseStyle": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 8,
-        "top": "1Story",
-        "freq": 243
-    },
-    "OverallQual": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 9,
-        "mean": 6.061475409836065,
-        "median": 6.0,
-        "min": 2.0,
-        "max": 10.0,
-        "percentile_25": 5.0,
-        "percentile_50": 6.0,
-        "percentile_75": 7.0
-    },
-    "OverallCond": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 7,
-        "mean": 5.567622950819672,
-        "median": 5.0,
-        "min": 3.0,
-        "max": 9.0,
-        "percentile_25": 5.0,
-        "percentile_50": 5.0,
-        "percentile_75": 6.0
-    },
-    "YearBuilt": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 99,
-        "mean": 1970.5225409836066,
-        "median": 1971.5,
-        "min": 1872.0,
-        "max": 2009.0,
-        "percentile_25": 1950.0,
-        "percentile_50": 1971.5,
-        "percentile_75": 2001.0
-    },
-    "YearRemodAdd": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 60,
-        "mean": 1984.1209016393443,
-        "median": 1992.0,
-        "min": 1950.0,
-        "max": 2010.0,
-        "percentile_25": 1965.75,
-        "percentile_50": 1992.0,
-        "percentile_75": 2004.0
-    },
-    "RoofStyle": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "top": "Gable",
-        "freq": 375
-    },
-    "RoofMatl": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "top": "CompShg",
-        "freq": 481
-    },
-    "Exterior1st": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 15,
-        "top": "VinylSd",
-        "freq": 172
-    },
-    "Exterior2nd": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 15,
-        "top": "VinylSd",
-        "freq": 167
-    },
-    "MasVnrType": {
-        "dtype": "object",
-        "missing_values": 61.47540983606557,
-        "unique_values": 3,
-        "top": "BrkFace",
-        "freq": 131
-    },
-    "MasVnrArea": {
+    "Temperature(\u00b0C)": {
         "dtype": "float64",
-        "missing_values": 0.819672131147541,
-        "unique_values": 149,
-        "mean": 94.04545454545455,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 1378.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 147.25
-    },
-    "ExterQual": {
-        "dtype": "object",
         "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "TA",
-        "freq": 303
+        "unique_values": 309,
+        "mean": 7.825,
+        "median": 7.5,
+        "min": -9.5,
+        "max": 26.1,
+        "percentile_25": 2.8,
+        "percentile_50": 7.5,
+        "percentile_75": 12.5
     },
-    "ExterCond": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "TA",
-        "freq": 435
-    },
-    "Foundation": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "top": "PConc",
-        "freq": 214
-    },
-    "BsmtQual": {
-        "dtype": "object",
-        "missing_values": 2.8688524590163933,
-        "unique_values": 4,
-        "top": "TA",
-        "freq": 229
-    },
-    "BsmtCond": {
-        "dtype": "object",
-        "missing_values": 2.8688524590163933,
-        "unique_values": 3,
-        "top": "TA",
-        "freq": 442
-    },
-    "BsmtExposure": {
-        "dtype": "object",
-        "missing_values": 2.8688524590163933,
-        "unique_values": 4,
-        "top": "No",
-        "freq": 320
-    },
-    "BsmtFinType1": {
-        "dtype": "object",
-        "missing_values": 2.8688524590163933,
-        "unique_values": 6,
-        "top": "Unf",
-        "freq": 151
-    },
-    "BsmtFinSF1": {
+    "Humidity(%)": {
         "dtype": "int64",
         "missing_values": 0.0,
-        "unique_values": 264,
-        "mean": 440.5655737704918,
-        "median": 376.5,
+        "unique_values": 89,
+        "mean": 54.83561643835616,
+        "median": 53.0,
+        "min": 10.0,
+        "max": 98.0,
+        "percentile_25": 37.0,
+        "percentile_50": 53.0,
+        "percentile_75": 73.0
+    },
+    "Wind speed (m/s)": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 62,
+        "mean": 1.9884132420091323,
+        "median": 1.8,
         "min": 0.0,
-        "max": 5644.0,
-        "percentile_25": 0.0,
-        "percentile_50": 376.5,
-        "percentile_75": 697.0
+        "max": 7.4,
+        "percentile_25": 1.1,
+        "percentile_50": 1.8,
+        "percentile_75": 2.7
     },
-    "BsmtFinType2": {
-        "dtype": "object",
-        "missing_values": 2.8688524590163933,
-        "unique_values": 6,
-        "top": "Unf",
-        "freq": 424
-    },
-    "BsmtFinSF2": {
+    "Visibility (10m)": {
         "dtype": "int64",
         "missing_values": 0.0,
-        "unique_values": 49,
-        "mean": 40.528688524590166,
+        "unique_values": 961,
+        "mean": 1299.5228310502282,
+        "median": 1417.0,
+        "min": 38.0,
+        "max": 2000.0,
+        "percentile_25": 686.75,
+        "percentile_50": 1417.0,
+        "percentile_75": 1972.0
+    },
+    "Dew point temperature(\u00b0C)": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 348,
+        "mean": -1.9090753424657534,
+        "median": -1.5,
+        "min": -24.4,
+        "max": 14.3,
+        "percentile_25": -7.0,
+        "percentile_50": -1.5,
+        "percentile_75": 4.4
+    },
+    "Solar Radiation (MJ/m2)": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 290,
+        "mean": 0.5944292237442923,
+        "median": 0.01,
+        "min": 0.0,
+        "max": 3.32,
+        "percentile_25": 0.0,
+        "percentile_50": 0.01,
+        "percentile_75": 0.98
+    },
+    "Rainfall(mm)": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 27,
+        "mean": 0.1192351598173516,
         "median": 0.0,
         "min": 0.0,
-        "max": 1031.0,
+        "max": 17.0,
         "percentile_25": 0.0,
         "percentile_50": 0.0,
         "percentile_75": 0.0
     },
-    "BsmtUnfSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 370,
-        "mean": 565.5348360655738,
-        "median": 495.5,
-        "min": 0.0,
-        "max": 2002.0,
-        "percentile_25": 216.0,
-        "percentile_50": 495.5,
-        "percentile_75": 805.5
-    },
-    "TotalBsmtSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 340,
-        "mean": 1046.6290983606557,
-        "median": 959.5,
-        "min": 0.0,
-        "max": 6110.0,
-        "percentile_25": 790.25,
-        "percentile_50": 959.5,
-        "percentile_75": 1275.0
-    },
-    "Heating": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "top": "GasA",
-        "freq": 473
-    },
-    "HeatingQC": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "Ex",
-        "freq": 251
-    },
-    "CentralAir": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 2,
-        "top": "Y",
-        "freq": 458
-    },
-    "Electrical": {
-        "dtype": "object",
-        "missing_values": 0.20491803278688525,
-        "unique_values": 3,
-        "top": "SBrkr",
-        "freq": 451
-    },
-    "1stFlrSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 363,
-        "mean": 1172.3709016393443,
-        "median": 1088.0,
-        "min": 438.0,
-        "max": 4692.0,
-        "percentile_25": 892.75,
-        "percentile_50": 1088.0,
-        "percentile_75": 1390.5
-    },
-    "2ndFlrSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 180,
-        "mean": 348.844262295082,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 2065.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 728.25
-    },
-    "LowQualFinSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 7,
-        "mean": 4.219262295081967,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 514.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "GrLivArea": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 389,
-        "mean": 1525.4344262295083,
-        "median": 1476.5,
-        "min": 438.0,
-        "max": 5642.0,
-        "percentile_25": 1137.0,
-        "percentile_50": 1476.5,
-        "percentile_75": 1787.25
-    },
-    "BsmtFullBath": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 3,
-        "mean": 0.41598360655737704,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 2.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 1.0
-    },
-    "BsmtHalfBath": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 2,
-        "mean": 0.05327868852459016,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 1.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "FullBath": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "mean": 1.5635245901639345,
-        "median": 2.0,
-        "min": 0.0,
-        "max": 3.0,
-        "percentile_25": 1.0,
-        "percentile_50": 2.0,
-        "percentile_75": 2.0
-    },
-    "HalfBath": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 3,
-        "mean": 0.3790983606557377,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 2.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 1.0
-    },
-    "BedroomAbvGr": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 7,
-        "mean": 2.8913934426229506,
-        "median": 3.0,
-        "min": 0.0,
-        "max": 6.0,
-        "percentile_25": 2.0,
-        "percentile_50": 3.0,
-        "percentile_75": 3.0
-    },
-    "KitchenAbvGr": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 2,
-        "mean": 1.0450819672131149,
-        "median": 1.0,
-        "min": 1.0,
-        "max": 2.0,
-        "percentile_25": 1.0,
-        "percentile_50": 1.0,
-        "percentile_75": 1.0
-    },
-    "KitchenQual": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "top": "TA",
-        "freq": 237
-    },
-    "TotRmsAbvGrd": {
-        "dtype": "int64",
+    "Snowfall (cm)": {
+        "dtype": "float64",
         "missing_values": 0.0,
         "unique_values": 10,
-        "mean": 6.551229508196721,
-        "median": 6.0,
-        "min": 3.0,
-        "max": 12.0,
-        "percentile_25": 5.0,
-        "percentile_50": 6.0,
-        "percentile_75": 7.0
-    },
-    "Functional": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "top": "Typ",
-        "freq": 456
-    },
-    "Fireplaces": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 4,
-        "mean": 0.6086065573770492,
-        "median": 1.0,
-        "min": 0.0,
-        "max": 3.0,
-        "percentile_25": 0.0,
-        "percentile_50": 1.0,
-        "percentile_75": 1.0
-    },
-    "FireplaceQu": {
-        "dtype": "object",
-        "missing_values": 46.72131147540984,
-        "unique_values": 5,
-        "top": "Gd",
-        "freq": 137
-    },
-    "GarageType": {
-        "dtype": "object",
-        "missing_values": 5.327868852459016,
-        "unique_values": 6,
-        "top": "Attchd",
-        "freq": 291
-    },
-    "GarageYrBlt": {
-        "dtype": "float64",
-        "missing_values": 5.327868852459016,
-        "unique_values": 84,
-        "mean": 1978.3073593073593,
-        "median": 1978.0,
-        "min": 1914.0,
-        "max": 2010.0,
-        "percentile_25": 1962.0,
-        "percentile_50": 1978.0,
-        "percentile_75": 2002.0
-    },
-    "GarageFinish": {
-        "dtype": "object",
-        "missing_values": 5.327868852459016,
-        "unique_values": 3,
-        "top": "Unf",
-        "freq": 202
-    },
-    "GarageCars": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "mean": 1.776639344262295,
-        "median": 2.0,
-        "min": 0.0,
-        "max": 4.0,
-        "percentile_25": 1.0,
-        "percentile_50": 2.0,
-        "percentile_75": 2.0
-    },
-    "GarageArea": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 231,
-        "mean": 473.0860655737705,
-        "median": 475.5,
-        "min": 0.0,
-        "max": 1418.0,
-        "percentile_25": 312.0,
-        "percentile_50": 475.5,
-        "percentile_75": 576.0
-    },
-    "GarageQual": {
-        "dtype": "object",
-        "missing_values": 5.327868852459016,
-        "unique_values": 3,
-        "top": "TA",
-        "freq": 436
-    },
-    "GarageCond": {
-        "dtype": "object",
-        "missing_values": 5.327868852459016,
-        "unique_values": 4,
-        "top": "TA",
-        "freq": 442
-    },
-    "PavedDrive": {
-        "dtype": "object",
-        "missing_values": 0.0,
-        "unique_values": 3,
-        "top": "Y",
-        "freq": 448
-    },
-    "WoodDeckSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 133,
-        "mean": 87.95286885245902,
+        "mean": 0.02551369863013699,
         "median": 0.0,
         "min": 0.0,
-        "max": 736.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 161.25
-    },
-    "OpenPorchSF": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 120,
-        "mean": 45.83196721311475,
-        "median": 27.5,
-        "min": 0.0,
-        "max": 547.0,
-        "percentile_25": 0.0,
-        "percentile_50": 27.5,
-        "percentile_75": 66.0
-    },
-    "EnclosedPorch": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 54,
-        "mean": 21.901639344262296,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 330.0,
+        "max": 4.1,
         "percentile_25": 0.0,
         "percentile_50": 0.0,
         "percentile_75": 0.0
     },
-    "3SsnPorch": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "mean": 2.612704918032787,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 304.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "ScreenPorch": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 31,
-        "mean": 14.33811475409836,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 480.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "PoolArea": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 6,
-        "mean": 5.877049180327869,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 738.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "PoolQC": {
-        "dtype": "object",
-        "missing_values": 98.97540983606558,
-        "unique_values": 3,
-        "top": "Gd",
-        "freq": 3
-    },
-    "Fence": {
-        "dtype": "object",
-        "missing_values": 81.35245901639344,
-        "unique_values": 4,
-        "top": "MnPrv",
-        "freq": 50
-    },
-    "MiscFeature": {
-        "dtype": "object",
-        "missing_values": 97.74590163934425,
-        "unique_values": 3,
-        "top": "Shed",
-        "freq": 9
-    },
-    "MiscVal": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 11,
-        "mean": 37.11065573770492,
-        "median": 0.0,
-        "min": 0.0,
-        "max": 8300.0,
-        "percentile_25": 0.0,
-        "percentile_50": 0.0,
-        "percentile_75": 0.0
-    },
-    "MoSold": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 12,
-        "mean": 6.35655737704918,
-        "median": 6.0,
-        "min": 1.0,
-        "max": 12.0,
-        "percentile_25": 5.0,
-        "percentile_50": 6.0,
-        "percentile_75": 8.0
-    },
-    "YrSold": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 5,
-        "mean": 2007.77868852459,
-        "median": 2008.0,
-        "min": 2006.0,
-        "max": 2010.0,
-        "percentile_25": 2007.0,
-        "percentile_50": 2008.0,
-        "percentile_75": 2009.0
-    },
-    "SaleType": {
+    "Seasons": {
         "dtype": "object",
         "missing_values": 0.0,
-        "unique_values": 7,
-        "top": "WD",
-        "freq": 427
+        "unique_values": 2,
+        "top": "Spring",
+        "freq": 1344
     },
-    "SaleCondition": {
+    "Holiday": {
         "dtype": "object",
         "missing_values": 0.0,
-        "unique_values": 5,
-        "top": "Normal",
-        "freq": 406
+        "unique_values": 2,
+        "top": "No Holiday",
+        "freq": 1656
     },
-    "SalePrice": {
-        "dtype": "int64",
+    "Functioning Day": {
+        "dtype": "object",
         "missing_values": 0.0,
-        "unique_values": 311,
-        "mean": 178378.65163934426,
-        "median": 163000.0,
-        "min": 52500.0,
-        "max": 745000.0,
-        "percentile_25": 128975.0,
-        "percentile_50": 163000.0,
-        "percentile_75": 205250.0
+        "unique_values": 2,
+        "top": "Yes",
+        "freq": 1728
     }
 }

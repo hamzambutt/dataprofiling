@@ -7,14 +7,23 @@ import json
 with open("config.json", "r") as f:
     config = json.load(f)
 
+if os.path.exists("metadata.json"):
+    with open("metadata.json", "r") as f:
+        memory = json.load(f)
+else:
+    memory = {}
+
 baseline_file = config["datapaths"]["baseline"]
 current_file = config["datapaths"]["current"]
 
 # Thresholds
-psi_ = config["threshold"]["psi_limit"]
+psi_thr = config["threshold"]["psi_limit"]
 chi_p = config["threshold"]["chi_p_value"]
 psi_moderate = config["threshold"]["psi_moderate_limit"]
 percentiles = config["threshold"]["percentile"]
+
+brain_file = "reports/stats_summary.json"
+
 
 if not os.path.exists(current_file) or not os.path.exists(baseline_file):
     print("Error: File not found!")
@@ -22,9 +31,19 @@ else:
     baseline = Profiling(baseline_file)
     report_base = baseline.data_stats(percentiles)
 
+    if os.path.exists(brain_file):
+        with open(brain_file, "r") as f:
+            report_base = json.load(f)
+    else:
+        report_base = baseline.data_stats(percentiles)
+
+        # Save it so we have it for all future batches
+        with open(brain_file, "w") as f:
+            json.dump(report_base, f, indent=4)
+
     # Save the JSON report
-    baseline.save_report(report_base, "reports/base_file.json")
-    print("Stats report saved.")
+    # baseline.save_report(report_base, "reports/base_file.json")
+    # print("Stats report saved.")
 
     current = Profiling(current_file)
     report_current = current.data_stats(percentiles)
@@ -37,58 +56,106 @@ else:
 
     # Visualization
     viz = DataVisualizer(df=baseline.df, stats=report_base)
-#    viz.save_plots()
+    #    viz.save_plots()
 
-common_cols = set(baseline.df.columns).intersection(set(current.df.columns))
-drift_analysis = []
-# loop through all columns
-for col in common_cols:
-    result = {"column": col}
+    common_cols = set(baseline.df.columns).intersection(
+        set(current.df.columns)
+    )
+    drift_analysis = []
+    # loop through all columns
+    for col in common_cols:
+        result = {"column": col}
 
-    if pd.api.types.is_numeric_dtype(
-        baseline.df[col]
-    ) and pd.api.types.is_numeric_dtype(current.df[col]):
+        is_drifted = False
 
-        # PSI Calculation
-        psi_score, exp_p, act_p = baseline.psi_cal(
-            current.df[col], baseline.df[col], bins=10
-        )
+        if pd.api.types.is_numeric_dtype(
+            baseline.df[col]
+        ) and pd.api.types.is_numeric_dtype(current.df[col]):
 
-        # PSI Report
-        if psi_score < psi_:
-            status = "Stable Distribution"
-        elif psi_ <= psi_score < psi_moderate:
-            status = "Moderate Distribution."
+            # PSI Calculation
+            psi_score, exp_p, act_p = baseline.psi_cal(
+                baseline.df[col], current.df[col], bins=10
+            )
+
+            # PSI Report
+            if psi_score < psi_thr:
+                status = "Stable Distribution"
+            elif psi_thr <= psi_score < psi_moderate:
+                status = "Moderate Distribution."
+            else:
+                status = "Significant Distribution."
+
+            if psi_score >= psi_thr:
+                is_drifted = True
+
+            curr_max = current.df[col].max()
+            curr_min = current.df[col].min()
+
+            base_min = report_base.get(col, {}).get("min")
+            base_max = report_base.get(col, {}).get("max")
+
+            # Outlier Detection Logic
+            if base_max < curr_max or base_min > curr_min:
+                print(
+                    f"OUTLIER ALERT: {col} breached!"
+                    "(Allowed: {base_min} - {base_max}. "
+                    "Found: {curr_min} to {curr_max})"
+                )
+                result["Outlier Alert"] = "Yes"
+            else:
+                result["Outlier Alert"] = "No"
+
+            result.update(
+                {
+                    "Method": "PSI",
+                    "PSI Score": round(psi_score, 4),
+                    "Status": status,
+                }
+            )
+
         else:
-            status = "Significant Distribution."
+            chi_, p_value = baseline.chi_cal(baseline.df[col], current.df[col])
+            if p_value < chi_p:
+                status = "Significant change detected."
+            else:
+                status = "No significant change detected."
 
-        result.update(
-            {
-                "Method": "PSI",
-                "PSI Score": round(psi_score, 4),
-                "Status": status,
-            }
-        )
+            if p_value < chi_p:
+                is_drifted = True
 
-    else:
-        chi_, p_value = baseline.chi_cal(current.df[col], baseline.df[col])
-        if p_value < chi_p:
-            status = "Significant change detected."
+            result.update(
+                {
+                    "Method": "Chi-Squared",
+                    "Chi-Squared Statistic": round(chi_, 4),
+                    "P-Value": round(p_value, 4),
+                    "Status": status,
+                }
+            )
+        # Drift Frequency Detection Logic
+        if is_drifted:
+            if col not in memory:
+                memory[col] = {"drift count": 0}
+
+            if is_drifted:
+                memory[col]["drift count"] += 1
+
+                if memory[col]["drift count"] >= 3:
+                    report_base[col] = report_current[col]
+
+                    memory[col]["drift count"] = 0
         else:
-            status = "No significant change detected."
+            memory[col] = {"drift count": 0}
 
-        result.update(
-            {
-                "Method": "Chi-Squared",
-                "Chi-Squared Statistic": round(chi_, 4),
-                "P-Value": round(p_value, 4),
-                "Status": status,
-            }
-        )
-    drift_analysis.append(result)
+        drift_analysis.append(result)
 
-with open("reports/drift_analysis.json", "w") as f:
-    json.dump(drift_analysis, f, indent=4)
+    with open("metadata.json", "w") as f:
+        json.dump(memory, f, indent=4)
+
+    with open("reports/stats_summary.json", "w") as f:
+        json.dump(report_base, f, indent=4)
+
+    with open("reports/drift_analysis.json", "w") as f:
+        json.dump(drift_analysis, f, indent=4)
 
     # Chi-Squared Report
 #            chi_plt = viz.chi_plot(col, chi_current, chi_baseline)
