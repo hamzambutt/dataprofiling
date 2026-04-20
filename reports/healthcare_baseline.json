@@ -1,0 +1,115 @@
+{
+    "Name": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 27748,
+        "top": "LOrI coOK",
+        "freq": 2
+    },
+    "Age": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 68,
+        "mean": 51.65055855855856,
+        "median": 52.0,
+        "min": 18.0,
+        "max": 85.0
+    },
+    "Gender": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 2,
+        "top": "Female",
+        "freq": 13877
+    },
+    "Blood Type": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 8,
+        "top": "AB+",
+        "freq": 3525
+    },
+    "Medical Condition": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 6,
+        "top": "Arthritis",
+        "freq": 4729
+    },
+    "Date of Admission": {
+        "dtype": "datetime64[ns]",
+        "missing_values": 0.0,
+        "unique_values": 1827,
+        "min": "2019-05-08 00:00:00",
+        "max": "2024-05-07 00:00:00",
+        "range": "1826 days 00:00:00"
+    },
+    "Doctor": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 24157,
+        "top": "John Smith",
+        "freq": 12
+    },
+    "Hospital": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 23501,
+        "top": "Ltd Smith",
+        "freq": 25
+    },
+    "Insurance Provider": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 5,
+        "top": "Cigna",
+        "freq": 5625
+    },
+    "Billing Amount": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 27750,
+        "mean": 25602.63771182582,
+        "median": 25616.271049169296,
+        "min": -1310.2728947084124,
+        "max": 52271.66374715383
+    },
+    "Room Number": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 400,
+        "mean": 300.4385945945946,
+        "median": 302.0,
+        "min": 101.0,
+        "max": 500.0
+    },
+    "Admission Type": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 3,
+        "top": "Elective",
+        "freq": 9424
+    },
+    "Discharge Date": {
+        "dtype": "datetime64[ns]",
+        "missing_values": 0.0,
+        "unique_values": 1855,
+        "min": "2019-05-09 00:00:00",
+        "max": "2024-06-05 00:00:00",
+        "range": "1854 days 00:00:00"
+    },
+    "Medication": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 5,
+        "top": "Lipitor",
+        "freq": 5629
+    },
+    "Test Results": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 3,
+        "top": "Abnormal",
+        "freq": 9326
+    }
+}

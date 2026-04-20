@@ -1,0 +1,115 @@
+{
+    "Name": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 25247,
+        "top": "ABIGAiL wateRS",
+        "freq": 2
+    },
+    "Age": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 77,
+        "mean": 51.42836036036036,
+        "median": 52.0,
+        "min": 13.0,
+        "max": 89.0
+    },
+    "Gender": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 2,
+        "top": "Male",
+        "freq": 13901
+    },
+    "Blood Type": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 8,
+        "top": "AB-",
+        "freq": 3514
+    },
+    "Medical Condition": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 6,
+        "top": "Diabetes",
+        "freq": 4717
+    },
+    "Date of Admission": {
+        "dtype": "datetime64[ns]",
+        "missing_values": 0.0,
+        "unique_values": 1827,
+        "min": "2019-05-08 00:00:00",
+        "max": "2024-05-07 00:00:00",
+        "range": "1826 days 00:00:00"
+    },
+    "Doctor": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 22146,
+        "top": "Michael Smith",
+        "freq": 16
+    },
+    "Hospital": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 21414,
+        "top": "LLC Smith",
+        "freq": 28
+    },
+    "Insurance Provider": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 5,
+        "top": "Cigna",
+        "freq": 5624
+    },
+    "Billing Amount": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 25250,
+        "mean": 50951.98896519554,
+        "median": 50921.319547289124,
+        "min": -4016.984279718261,
+        "max": 105528.55347293835
+    },
+    "Room Number": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 400,
+        "mean": 301.8310630630631,
+        "median": 303.0,
+        "min": 101.0,
+        "max": 500.0
+    },
+    "Admission Type": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 3,
+        "top": "Emergency",
+        "freq": 9285
+    },
+    "Discharge Date": {
+        "dtype": "datetime64[ns]",
+        "missing_values": 0.0,
+        "unique_values": 1855,
+        "min": "2019-05-10 00:00:00",
+        "max": "2024-06-06 00:00:00",
+        "range": "1854 days 00:00:00"
+    },
+    "Medication": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 5,
+        "top": "Aspirin",
+        "freq": 5639
+    },
+    "Test Results": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 3,
+        "top": "Normal",
+        "freq": 9302
+    }
+}
