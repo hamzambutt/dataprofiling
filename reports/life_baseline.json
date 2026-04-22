@@ -1,0 +1,196 @@
+{
+    "Country": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 183,
+        "top": "Afghanistan",
+        "freq": 8
+    },
+    "Year": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 16,
+        "mean": 2007.4965846994535,
+        "median": 2008.0,
+        "min": 2000.0,
+        "max": 2015.0
+    },
+    "Status": {
+        "dtype": "object",
+        "missing_values": 0.0,
+        "unique_values": 2,
+        "top": "Developing",
+        "freq": 1208
+    },
+    "Life expectancy": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 335,
+        "mean": 69.17616120218578,
+        "median": 72.0,
+        "min": 36.3,
+        "max": 89.0
+    },
+    "Adult Mortality": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 363,
+        "mean": 162.93647540983608,
+        "median": 141.0,
+        "min": 1.0,
+        "max": 699.0
+    },
+    "infant deaths": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 153,
+        "mean": 30.762978142076502,
+        "median": 3.0,
+        "min": 0.0,
+        "max": 1800.0
+    },
+    "Alcohol": {
+        "dtype": "float64",
+        "missing_values": 88.0,
+        "unique_values": 767,
+        "mean": 4.635239825581396,
+        "median": 3.81,
+        "min": 0.01,
+        "max": 16.99
+    },
+    "percentage expenditure": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 1169,
+        "mean": 726.178439279291,
+        "median": 69.39761328,
+        "min": 0.0,
+        "max": 18961.3486
+    },
+    "Hepatitis B": {
+        "dtype": "float64",
+        "missing_values": 268.0,
+        "unique_values": 79,
+        "mean": 80.71739130434783,
+        "median": 92.0,
+        "min": 1.0,
+        "max": 99.0
+    },
+    "Measles": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 556,
+        "mean": 2210.4474043715845,
+        "median": 17.0,
+        "min": 0.0,
+        "max": 212183.0
+    },
+    "BMI": {
+        "dtype": "float64",
+        "missing_values": 16.0,
+        "unique_values": 531,
+        "mean": 38.39979281767956,
+        "median": 43.2,
+        "min": 1.4,
+        "max": 77.6
+    },
+    "under-five deaths": {
+        "dtype": "int64",
+        "missing_values": 0.0,
+        "unique_values": 187,
+        "mean": 42.752049180327866,
+        "median": 4.0,
+        "min": 0.0,
+        "max": 2400.0
+    },
+    "Polio": {
+        "dtype": "float64",
+        "missing_values": 8.0,
+        "unique_values": 70,
+        "mean": 82.35508241758242,
+        "median": 93.0,
+        "min": 3.0,
+        "max": 99.0
+    },
+    "Total expenditure": {
+        "dtype": "float64",
+        "missing_values": 108.0,
+        "unique_values": 659,
+        "mean": 5.926386430678465,
+        "median": 5.72,
+        "min": 0.37,
+        "max": 17.2
+    },
+    "Diphtheria": {
+        "dtype": "float64",
+        "missing_values": 8.0,
+        "unique_values": 75,
+        "mean": 81.79739010989012,
+        "median": 93.0,
+        "min": 2.0,
+        "max": 99.0
+    },
+    "HIV/AIDS": {
+        "dtype": "float64",
+        "missing_values": 0.0,
+        "unique_values": 142,
+        "mean": 1.803688524590164,
+        "median": 0.1,
+        "min": 0.1,
+        "max": 50.3
+    },
+    "GDP": {
+        "dtype": "float64",
+        "missing_values": 220.0,
+        "unique_values": 1244,
+        "mean": 7433.907853477009,
+        "median": 1877.4812900000002,
+        "min": 1.68135,
+        "max": 114293.8433
+    },
+    "Population": {
+        "dtype": "float64",
+        "missing_values": 322.0,
+        "unique_values": 1139,
+        "mean": 12284712.097005254,
+        "median": 1350920.0,
+        "min": 41.0,
+        "max": 1161977719.0
+    },
+    "thinness  1-19 years": {
+        "dtype": "float64",
+        "missing_values": 16.0,
+        "unique_values": 169,
+        "mean": 4.905179558011049,
+        "median": 3.4,
+        "min": 0.1,
+        "max": 27.5
+    },
+    "thinness 5-9 years": {
+        "dtype": "float64",
+        "missing_values": 16.0,
+        "unique_values": 177,
+        "mean": 4.901933701657459,
+        "median": 3.4,
+        "min": 0.1,
+        "max": 28.5
+    },
+    "Income composition of resources": {
+        "dtype": "float64",
+        "missing_values": 80.0,
+        "unique_values": 527,
+        "mean": 0.6263988439306358,
+        "median": 0.678,
+        "min": 0.0,
+        "max": 0.948
+    },
+    "Schooling": {
+        "dtype": "float64",
+        "missing_values": 80.0,
+        "unique_values": 159,
+        "mean": 12.008092485549131,
+        "median": 12.4,
+        "min": 0.0,
+        "max": 20.7
+    }
+}

@@ -127,6 +127,10 @@ class Profiling:
 
         baseline_col = baseline_col.dropna()
         current_col = current_col.dropna()
+
+        if len(baseline_col) == 0 or len(current_col) == 0:
+            return 0.0, [], []
+
         breakpoints = np.unique(
             np.percentile(baseline_col, np.linspace(0, 100, bins + 1))
         )
@@ -138,8 +142,8 @@ class Profiling:
             current_col.dropna(), bins=breakpoints
         )
 
-        current_percents = current_counts / len(baseline_col.dropna())
-        baseline_percents = baseline_counts / len(current_col.dropna())
+        current_percents = current_counts / len(current_col.dropna())
+        baseline_percents = baseline_counts / len(baseline_col.dropna())
 
         # 1e-10 to prevent division by zero and log of zero
         current_percents += 1e-10

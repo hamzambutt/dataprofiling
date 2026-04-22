@@ -1,5 +1,6 @@
 import os
 import json
+import pandas as pd
 from dynamic import Profiling
 
 with open("config.json", "r") as f:
@@ -16,6 +17,7 @@ else:
 
     current = Profiling(current_file)
 
+    # injection for testing
     if "Billing Amount" in current.df.columns:
         current.df["Billing Amount"] = current.df["Billing Amount"] * 2.0
 
@@ -23,30 +25,52 @@ else:
 
     # Save the JSON report
     baseline.save_report(report_base, "reports/healthcare_baseline.json")
-    current.save_report(report_current, "reports/healthcare_current.json")
 
     # Segment by Gender
-    target_gender = "Female"
-    baseline_segment = baseline.df[baseline.df["Gender"] == target_gender]
-    current_segment = current.df[current.df["Gender"] == target_gender]
+    target_segment = "Medical Condition"
+    unique_segments = baseline.df[target_segment].dropna().unique()
 
-    base_max = baseline_segment["Billing Amount"].max()
-    current_max = current_segment["Billing Amount"].max()
+    for condition in unique_segments:
 
-    if current_max > base_max:
-        print(f"Standard Outlier Check: Breached for {target_gender}!")
-    else:
-        print(f"Standard Outlier Check: Passed for {target_gender}!")
+        baseline_segment = baseline.df[
+            baseline.df[target_segment] == condition
+        ]
+        current_segment = current.df[current.df[target_segment] == condition]
 
-    segement_psi, _, _ = baseline.psi_cal(
-        baseline_col=baseline_segment["Billing Amount"],
-        current_col=current_segment["Billing Amount"],
-        bins=10,
-    )
+        for col in baseline_segment.columns:
 
-    print(f"Segmented PSI for {target_gender}: {segement_psi:.4f}")
+            if col == target_segment:
+                continue  # skips the column
 
-    if segement_psi > 0.2:
-        print(f"Segmented PSI Check: Breached for {target_gender}")
-    else:
-        print(f"Segmented PSI Check: Passed for {target_gender}")
+            if pd.api.types.is_numeric_dtype(baseline.df[col]):
+                segement_psi, _, _ = baseline.psi_cal(
+                    baseline_segment[col],
+                    current_segment[col],
+                    bins=10,
+                )
+                if segement_psi > config["threshold"]["psi_limit"]:
+                    print(
+                        f"Critical drift detected in column {col}"
+                        f" for segment {condition}"
+                    )
+                elif segement_psi > config["threshold"]["psi_moderate_limit"]:
+                    print(
+                        f"Moderate drift detected in column {col}"
+                        f" for segment {condition}"
+                    )
+                else:
+                    print(
+                        f"No significant drift detected in column {col}"
+                        f" for segment {condition}"
+                    )
+
+            else:
+                chi_stat, p_value = baseline.chi_cal(
+                    baseline_segment[col], current_segment[col]
+                )
+
+                if p_value < config["threshold"]["chi_p_value"]:
+                    print(
+                        f"Critical drift detected in column {col}"
+                        f" for segment {condition}"
+                    )

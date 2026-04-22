@@ -1,13 +1,13 @@
 {
     "datapaths": {
 
-        "baseline": "data/healthcare_baseline.csv",
-        "current": "data/healthcare_current.csv"
+        "baseline": "data/life_baseline.csv",
+        "current": "data/life_current.csv"
     },
     "threshold":{
         "psi_limit": 0.2,
         "psi_moderate_limit": 0.5,
-        "chi_p_value": 0.9,
+        "chi_p_value": 0.05,
         "percentile": [25, 50, 75]
     }
 }
