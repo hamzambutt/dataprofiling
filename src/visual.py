@@ -218,3 +218,57 @@ class DataVisualizer:
         plt.tight_layout()
         plt.savefig(f"reports/plots/{col_name}_chi.png")
         plt.close()
+
+    def plot_root_cause_evidence(
+        self, base_df, curr_df, feature_col, target_col, country
+    ):
+        import matplotlib.pyplot as plt
+
+        # Safely align and drop missing data for both columns simultaneously
+        base_clean = base_df.dropna(subset=[feature_col, target_col])
+        curr_clean = curr_df.dropna(subset=[feature_col, target_col])
+
+        if base_clean.empty or curr_clean.empty:
+            return
+
+        plt.figure(figsize=(10, 6))
+
+        # Plot Baseline (The Past)
+        plt.scatter(
+            base_clean[feature_col],
+            base_clean[target_col],
+            alpha=0.6,
+            label="Baseline (Past)",
+            color="#457b9d",
+            edgecolor="black",
+            s=80,
+        )
+
+        # Plot Current (The Anomaly)
+        plt.scatter(
+            curr_clean[feature_col],
+            curr_clean[target_col],
+            alpha=0.7,
+            label="Current (Anomaly)",
+            color="#e63946",
+            edgecolor="black",
+            s=80,
+        )
+
+        plt.title(
+            f"Drift Impact: {feature_col} affected {target_col} in {country}",
+            fontsize=14,
+            fontweight="bold",
+        )
+        plt.xlabel(feature_col, fontsize=12)
+        plt.ylabel(target_col, fontsize=12)
+        plt.legend(fontsize=11)
+        plt.grid(True, linestyle="--", alpha=0.4)
+
+        # Format safely for saving
+        safe_feat = str(feature_col).replace(" ", "_").replace("/", "_")
+        plt.tight_layout()
+        plt.savefig(
+            f"reports/plots/{country}_Evidence_{safe_feat}.png", dpi=300
+        )
+        plt.close()
