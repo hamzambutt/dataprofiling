@@ -6,15 +6,6 @@
         "top": "Afghanistan",
         "freq": 8
     },
-    "Year": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 16,
-        "mean": 2007.4965846994535,
-        "median": 2008.0,
-        "min": 2000.0,
-        "max": 2015.0
-    },
     "Status": {
         "dtype": "object",
         "missing_values": 0.0,
@@ -25,172 +16,127 @@
     "Life expectancy": {
         "dtype": "float64",
         "missing_values": 0.0,
-        "unique_values": 335,
-        "mean": 69.17616120218578,
-        "median": 72.0,
-        "min": 36.3,
+        "unique_values": 336,
+        "mean": 67.77793715846994,
+        "median": 71.4,
+        "min": 39.0,
         "max": 89.0
     },
     "Adult Mortality": {
         "dtype": "int64",
         "missing_values": 0.0,
-        "unique_values": 363,
-        "mean": 162.93647540983608,
-        "median": 141.0,
+        "unique_values": 382,
+        "mean": 172.6653005464481,
+        "median": 146.0,
         "min": 1.0,
-        "max": 699.0
-    },
-    "infant deaths": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 153,
-        "mean": 30.762978142076502,
-        "median": 3.0,
-        "min": 0.0,
-        "max": 1800.0
+        "max": 723.0
     },
     "Alcohol": {
         "dtype": "float64",
-        "missing_values": 88.0,
-        "unique_values": 767,
-        "mean": 4.635239825581396,
-        "median": 3.81,
+        "missing_values": 9.0,
+        "unique_values": 808,
+        "mean": 4.75114089347079,
+        "median": 3.85,
         "min": 0.01,
-        "max": 16.99
+        "max": 17.87
     },
     "percentage expenditure": {
         "dtype": "float64",
         "missing_values": 0.0,
-        "unique_values": 1169,
-        "mean": 726.178439279291,
-        "median": 69.39761328,
+        "unique_values": 1239,
+        "mean": 667.6083472390396,
+        "median": 57.659920315,
         "min": 0.0,
-        "max": 18961.3486
+        "max": 15345.4907
     },
     "Hepatitis B": {
         "dtype": "float64",
-        "missing_values": 268.0,
-        "unique_values": 79,
-        "mean": 80.71739130434783,
-        "median": 92.0,
+        "missing_values": 445.0,
+        "unique_values": 82,
+        "mean": 78.18155053974485,
+        "median": 91.0,
         "min": 1.0,
         "max": 99.0
     },
     "Measles": {
         "dtype": "int64",
         "missing_values": 0.0,
-        "unique_values": 556,
-        "mean": 2210.4474043715845,
-        "median": 17.0,
+        "unique_values": 602,
+        "mean": 3230.551912568306,
+        "median": 23.0,
         "min": 0.0,
         "max": 212183.0
     },
     "BMI": {
         "dtype": "float64",
         "missing_values": 16.0,
-        "unique_values": 531,
-        "mean": 38.39979281767956,
-        "median": 43.2,
-        "min": 1.4,
-        "max": 77.6
-    },
-    "under-five deaths": {
-        "dtype": "int64",
-        "missing_values": 0.0,
-        "unique_values": 187,
-        "mean": 42.752049180327866,
-        "median": 4.0,
-        "min": 0.0,
-        "max": 2400.0
+        "unique_values": 501,
+        "mean": 36.35048342541436,
+        "median": 41.349999999999994,
+        "min": 1.0,
+        "max": 73.4
     },
     "Polio": {
         "dtype": "float64",
-        "missing_values": 8.0,
-        "unique_values": 70,
-        "mean": 82.35508241758242,
-        "median": 93.0,
+        "missing_values": 16.0,
+        "unique_values": 71,
+        "mean": 80.60151933701657,
+        "median": 92.0,
         "min": 3.0,
         "max": 99.0
     },
     "Total expenditure": {
         "dtype": "float64",
-        "missing_values": 108.0,
-        "unique_values": 659,
-        "mean": 5.926386430678465,
-        "median": 5.72,
+        "missing_values": 27.0,
+        "unique_values": 638,
+        "mean": 5.72651356993737,
+        "median": 5.6,
         "min": 0.37,
-        "max": 17.2
+        "max": 15.6
     },
     "Diphtheria": {
         "dtype": "float64",
-        "missing_values": 8.0,
-        "unique_values": 75,
-        "mean": 81.79739010989012,
-        "median": 93.0,
-        "min": 2.0,
+        "missing_values": 16.0,
+        "unique_values": 78,
+        "mean": 79.52279005524862,
+        "median": 91.0,
+        "min": 3.0,
         "max": 99.0
     },
     "HIV/AIDS": {
         "dtype": "float64",
         "missing_values": 0.0,
-        "unique_values": 142,
-        "mean": 1.803688524590164,
+        "unique_values": 172,
+        "mean": 2.401434426229508,
         "median": 0.1,
         "min": 0.1,
-        "max": 50.3
+        "max": 50.6
     },
     "GDP": {
         "dtype": "float64",
-        "missing_values": 220.0,
-        "unique_values": 1244,
-        "mean": 7433.907853477009,
-        "median": 1877.4812900000002,
+        "missing_values": 221.0,
+        "unique_values": 1243,
+        "mean": 6146.570695599598,
+        "median": 1288.642924,
         "min": 1.68135,
-        "max": 114293.8433
+        "max": 89739.7117
     },
     "Population": {
         "dtype": "float64",
-        "missing_values": 322.0,
+        "missing_values": 320.0,
         "unique_values": 1139,
-        "mean": 12284712.097005254,
-        "median": 1350920.0,
-        "min": 41.0,
-        "max": 1161977719.0
-    },
-    "thinness  1-19 years": {
-        "dtype": "float64",
-        "missing_values": 16.0,
-        "unique_values": 169,
-        "mean": 4.905179558011049,
-        "median": 3.4,
-        "min": 0.1,
-        "max": 27.5
-    },
-    "thinness 5-9 years": {
-        "dtype": "float64",
-        "missing_values": 16.0,
-        "unique_values": 177,
-        "mean": 4.901933701657459,
-        "median": 3.4,
-        "min": 0.1,
-        "max": 28.5
+        "mean": 13166499.694475524,
+        "median": 1315298.5,
+        "min": 34.0,
+        "max": 1179681239.0
     },
     "Income composition of resources": {
         "dtype": "float64",
         "missing_values": 80.0,
-        "unique_values": 527,
-        "mean": 0.6263988439306358,
-        "median": 0.678,
+        "unique_values": 523,
+        "mean": 0.5834443641618497,
+        "median": 0.645,
         "min": 0.0,
-        "max": 0.948
-    },
-    "Schooling": {
-        "dtype": "float64",
-        "missing_values": 80.0,
-        "unique_values": 159,
-        "mean": 12.008092485549131,
-        "median": 12.4,
-        "min": 0.0,
-        "max": 20.7
+        "max": 0.934
     }
 }

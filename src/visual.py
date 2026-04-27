@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os
+import seaborn as sns
 
 
 class DataVisualizer:
@@ -220,9 +221,9 @@ class DataVisualizer:
         plt.close()
 
     def plot_root_cause_evidence(
-        self, base_df, curr_df, feature_col, target_col, country
+        self, base_df, curr_df, feature_col, target_col, country, status
     ):
-        import matplotlib.pyplot as plt
+        """Scatter plot proving how a feature's drift affected the target."""
 
         # Safely align and drop missing data for both columns simultaneously
         base_clean = base_df.dropna(subset=[feature_col, target_col])
@@ -255,8 +256,10 @@ class DataVisualizer:
             s=80,
         )
 
+        # Added the Status tag directly into the Title!
         plt.title(
-            f"Drift Impact: {feature_col} affected {target_col} in {country}",
+            f"Drift Impact in {country} [{status}]\n"
+            f"How {feature_col} affected {target_col}",
             fontsize=14,
             fontweight="bold",
         )
@@ -272,3 +275,274 @@ class DataVisualizer:
             f"reports/plots/{country}_Evidence_{safe_feat}.png", dpi=300
         )
         plt.close()
+
+    def plot_top_10_overview(self, df, target_col, category_col):
+
+        if (
+            "Country" not in df.columns
+            or category_col not in df.columns
+            or target_col not in df.columns
+        ):
+            print("Missing required columns for Overview Plot.")
+            return
+
+        # Calculate Average target metric per country
+        country_stats = (
+            df.groupby(["Country", category_col])[target_col]
+            .mean()
+            .reset_index()
+        )
+
+        # Sort to get the Top 10 highest overall
+        top_10 = country_stats.sort_values(
+            by=target_col, ascending=False
+        ).head(10)
+
+        if top_10.empty:
+            return
+
+        plt.figure(figsize=(12, 7))
+
+        # Lock in specific colors so they never shift
+        status_colors = {"Developing": "#e63946", "Developed": "#457b9d"}
+
+        ax = sns.barplot(
+            data=top_10,
+            x="Country",
+            y=target_col,
+            hue=category_col,
+            palette=status_colors,
+            dodge=False,
+            edgecolor="black",
+        )
+
+        # Physically write the status on top of every bar
+        for p, status in zip(ax.patches, top_10[category_col]):
+            ax.annotate(
+                f"{status}",
+                (p.get_x() + p.get_width() / 2.0, p.get_height()),
+                ha="center",
+                va="bottom",
+                fontsize=10,
+                color="black",
+                fontweight="bold",
+                xytext=(0, 5),
+                textcoords="offset points",
+            )
+
+        plt.title(
+            f"Global Overview: Top 10 Countries by {target_col}",
+            fontsize=15,
+            fontweight="bold",
+        )
+        plt.xlabel("Country", fontsize=12)
+        plt.ylabel(f"Average {target_col}", fontsize=12)
+        plt.xticks(rotation=45, ha="right", fontsize=11)
+
+        # Handle the legend cleanly
+        handles, labels = ax.get_legend_handles_labels()
+        if handles:
+            plt.legend(title=category_col, fontsize=11)
+
+        plt.grid(axis="y", linestyle="--", alpha=0.4)
+
+        # Add extra room at the top so the text doesn't get cut off
+        plt.ylim(0, top_10[target_col].max() * 1.15)
+
+        plt.tight_layout()
+        plt.savefig("reports/plots/Global_Top10_Overview.png", dpi=300)
+        plt.close()
+        print("Global Plot saved: reports/plots/Global_Top10_Overview.png")
+
+    def plot_feature_impact_overview(
+        self, df, drift_causes, target_col="Adult Mortality"
+    ):
+
+        feature_countries = {}
+        for country, features in drift_causes.items():
+            for feature in features:
+                feature_countries.setdefault(feature, []).append(country)
+
+        if not feature_countries:
+            print("No drifts found to generate the Feature Impact plot.")
+            return
+
+        # Calculate the Average Mortality for the countries affected
+        feature_stats = []
+        for feature, countries in feature_countries.items():
+            # Get the average mortality for ONLY the countries that drifted
+            avg_mortality = df[df["Country"].isin(countries)][
+                target_col
+            ].mean()
+            feature_stats.append(
+                {
+                    "Feature": feature,
+                    "Average Mortality": avg_mortality,
+                    # Join the country names with a line break
+                    "Affected Countries": "\n".join(countries),
+                }
+            )
+
+        # Sort so the deadliest features are on the left!
+        plot_df = pd.DataFrame(feature_stats).sort_values(
+            by="Average Mortality", ascending=False
+        )
+
+        plt.figure(figsize=(15, 8))
+
+        # 3. Draw the bars
+        ax = sns.barplot(
+            data=plot_df,
+            x="Feature",
+            y="Average Mortality",
+            palette="magma",  # A cool color gradient for severity
+            edgecolor="black",
+        )
+
+        # 4. Write the names of the countries directly on top of the bars!
+        for p, countries_text in zip(
+            ax.patches, plot_df["Affected Countries"]
+        ):
+            ax.annotate(
+                countries_text,
+                (p.get_x() + p.get_width() / 2.0, p.get_height()),
+                ha="center",
+                va="bottom",
+                fontsize=9,
+                color="black",
+                fontweight="bold",
+                xytext=(0, 5),
+                textcoords="offset points",
+            )
+
+        plt.title(
+            f"Global Feature Impact: {target_col} of Affected Countries",
+            fontsize=16,
+            fontweight="bold",
+        )
+        plt.xlabel("Drifting Columns (Features)", fontsize=13)
+        plt.ylabel(f"Average {target_col}", fontsize=13)
+        plt.xticks(rotation=45, ha="right", fontsize=11)
+        plt.grid(axis="y", linestyle="--", alpha=0.4)
+
+        # Increase Y-limit country names doesn't get cut off the top
+        plt.ylim(0, plot_df["Average Mortality"].max() * 1.5)
+
+        plt.tight_layout()
+        plt.savefig("reports/plots/Global_Feature_Impact.png", dpi=300)
+        plt.close()
+        print(
+            "Feature Impact Plot saved: "
+            "reports/plots/Global_Feature_Impact.png"
+        )
+
+    def plot_feature_extremes(self, df, target_col="Adult Mortality"):
+
+        if "Country" not in df.columns or target_col not in df.columns:
+            return
+
+        # Get the average of every numeric column grouped by Country
+        country_means = (
+            df.groupby("Country").mean(numeric_only=True).reset_index()
+        )
+
+        # Create a lookup dictionary so we know every country's Status!
+        country_status_map = {}
+        if "Status" in df.columns:
+            status_df = (
+                df[["Country", "Status"]]
+                .dropna()
+                .drop_duplicates(subset=["Country"])
+            )
+            country_status_map = dict(
+                zip(status_df["Country"], status_df["Status"])
+            )
+
+        # Find the country with the max value for each feature
+        features = [
+            col
+            for col in country_means.columns
+            if col not in ["Country", target_col, "Year"]
+        ]
+
+        if not features:
+            return
+
+        plot_data = []
+        for feature in features:
+            max_idx = country_means[feature].idxmax()
+            max_row = country_means.loc[max_idx]
+            country_name = max_row["Country"]
+
+            plot_data.append(
+                {
+                    "Feature": feature,
+                    "Highest Country": country_name,
+                    "Mortality": max_row[target_col],
+                    # Grab the Status for this specific country
+                    "Status": country_status_map.get(country_name, "Unknown"),
+                }
+            )
+
+        plot_df = pd.DataFrame(plot_data).sort_values(
+            by="Mortality", ascending=False
+        )
+
+        plt.figure(figsize=(16, 8))
+
+        # Lock in our specific colors
+        status_colors = {
+            "Developing": "#e63946",
+            "Developed": "#457b9d",
+            "Unknown": "gray",
+        }
+
+        ax = sns.barplot(
+            data=plot_df,
+            x="Feature",
+            y="Mortality",
+            hue="Status",  # 👇 Color the bars based on Status
+            palette=status_colors,
+            dodge=False,  # Keeps the bars perfectly centered
+            edgecolor="black",
+        )
+
+        # Write the country names on top
+        for p, country_name in zip(ax.patches, plot_df["Highest Country"]):
+            # Ensure we only annotate bars that actually exist
+            if p.get_height() > 0:
+                ax.annotate(
+                    country_name,
+                    (p.get_x() + p.get_width() / 2.0, p.get_height()),
+                    ha="center",
+                    va="bottom",
+                    fontsize=9,
+                    color="black",
+                    fontweight="bold",
+                    xytext=(0, 5),
+                    textcoords="offset points",
+                    rotation=90,
+                )
+
+        plt.title(
+            "Feature Extremes: Adult Mortality of the Leading "
+            "Country per Feature",
+            fontsize=16,
+            fontweight="bold",
+        )
+        plt.xlabel("Features (All Columns)", fontsize=13)
+        plt.ylabel(f"Average {target_col}", fontsize=13)
+        plt.xticks(rotation=45, ha="right", fontsize=11)
+
+        # Add the Legend for the Status colors
+        handles, labels = ax.get_legend_handles_labels()
+        if handles:
+            plt.legend(title="Country Status", fontsize=11)
+
+        plt.grid(axis="y", linestyle="--", alpha=0.4)
+        plt.ylim(0, plot_df["Mortality"].max() * 1.5)
+
+        plt.tight_layout()
+        plt.savefig("reports/plots/Global_Feature_Extremes.png", dpi=300)
+        plt.close()
+        print("Feature Plot saved: reports/plots/Global_Feature_Extremes.png")
