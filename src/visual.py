@@ -354,9 +354,7 @@ class DataVisualizer:
         plt.close()
         print("Global Plot saved: reports/plots/Global_Top10_Overview.png")
 
-    def plot_feature_impact_overview(
-        self, df, drift_causes, target_col="Adult Mortality"
-    ):
+    def plot_feature_impact_overview(self, df, drift_causes, target_col):
 
         feature_countries = {}
         for country, features in drift_causes.items():
@@ -436,57 +434,10 @@ class DataVisualizer:
             "reports/plots/Global_Feature_Impact.png"
         )
 
-    def plot_feature_extremes(self, df, target_col="Adult Mortality"):
+    def plot_feature_extremes(self, plot_df, target_col):
 
-        if "Country" not in df.columns or target_col not in df.columns:
+        if plot_df is None or plot_df.empty:
             return
-
-        # Get the average of every numeric column grouped by Country
-        country_means = (
-            df.groupby("Country").mean(numeric_only=True).reset_index()
-        )
-
-        # Create a lookup dictionary so we know every country's Status!
-        country_status_map = {}
-        if "Status" in df.columns:
-            status_df = (
-                df[["Country", "Status"]]
-                .dropna()
-                .drop_duplicates(subset=["Country"])
-            )
-            country_status_map = dict(
-                zip(status_df["Country"], status_df["Status"])
-            )
-
-        # Find the country with the max value for each feature
-        features = [
-            col
-            for col in country_means.columns
-            if col not in ["Country", target_col, "Year"]
-        ]
-
-        if not features:
-            return
-
-        plot_data = []
-        for feature in features:
-            max_idx = country_means[feature].idxmax()
-            max_row = country_means.loc[max_idx]
-            country_name = max_row["Country"]
-
-            plot_data.append(
-                {
-                    "Feature": feature,
-                    "Highest Country": country_name,
-                    "Mortality": max_row[target_col],
-                    # Grab the Status for this specific country
-                    "Status": country_status_map.get(country_name, "Unknown"),
-                }
-            )
-
-        plot_df = pd.DataFrame(plot_data).sort_values(
-            by="Mortality", ascending=False
-        )
 
         plt.figure(figsize=(16, 8))
 
@@ -501,15 +452,14 @@ class DataVisualizer:
             data=plot_df,
             x="Feature",
             y="Mortality",
-            hue="Status",  # 👇 Color the bars based on Status
+            hue="Status",
             palette=status_colors,
-            dodge=False,  # Keeps the bars perfectly centered
+            dodge=False,
             edgecolor="black",
         )
 
         # Write the country names on top
         for p, country_name in zip(ax.patches, plot_df["Highest Country"]):
-            # Ensure we only annotate bars that actually exist
             if p.get_height() > 0:
                 ax.annotate(
                     country_name,
@@ -546,3 +496,54 @@ class DataVisualizer:
         plt.savefig("reports/plots/Global_Feature_Extremes.png", dpi=300)
         plt.close()
         print("Feature Plot saved: reports/plots/Global_Feature_Extremes.png")
+
+    def plot_afghanistan_drift(self, plot_df, country):
+
+        if plot_df is None or plot_df.empty:
+            return
+
+        plt.figure(figsize=(10, 6))
+
+        ax = sns.barplot(
+            data=plot_df,
+            x="Feature",
+            y="Value",
+            hue="Dataset",
+            palette={"Baseline": "#457b9d", "Current": "#e63946"},
+            edgecolor="black",
+        )
+
+        for p in ax.patches:
+            height = p.get_height()
+            if height > 0:
+                ax.annotate(
+                    f"{height:.1f}",
+                    (p.get_x() + p.get_width() / 2.0, height),
+                    ha="center",
+                    va="bottom",
+                    fontsize=10,
+                    color="black",
+                    fontweight="bold",
+                    xytext=(0, 5),
+                    textcoords="offset points",
+                )
+
+        plt.title(
+            f"Simulated Crisis: {country} Data Drift",
+            fontsize=16,
+            fontweight="bold",
+        )
+        plt.xlabel("Injected Features", fontsize=13)
+        plt.ylabel("Average Value", fontsize=13)
+        plt.legend(title="Timeline", fontsize=11)
+        plt.grid(axis="y", linestyle="--", alpha=0.4)
+
+        plt.ylim(0, plot_df["Value"].max() * 1.2)
+
+        plt.tight_layout()
+        plt.savefig(f"reports/plots/{country}_Drift_Comparison.png", dpi=300)
+        plt.close()
+        print(
+            f"Drift Comparison Plot saved: "
+            f"reports/plots/{country}_Drift_Comparison.png"
+        )
