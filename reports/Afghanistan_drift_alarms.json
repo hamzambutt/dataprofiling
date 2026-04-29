@@ -1,0 +1,26 @@
+{
+    "Hepatitis B": {
+        "PSI_Score": 21.293,
+        "KS_P_Value": 0.0002,
+        "EMD_Score": 39.55,
+        "JS_Score": 0.4179,
+        "Old_Average": 64.25,
+        "New_Average": 103.8
+    },
+    "BMI": {
+        "PSI_Score": 20.9464,
+        "KS_P_Value": 0.0002,
+        "EMD_Score": 31.6025,
+        "JS_Score": 0.2736,
+        "Old_Average": 13.64,
+        "New_Average": 45.24
+    },
+    "Polio": {
+        "PSI_Score": 18.5014,
+        "KS_P_Value": 0.0025,
+        "EMD_Score": 277.8,
+        "JS_Score": 0.7049,
+        "Old_Average": 40.0,
+        "New_Average": 317.8
+    }
+}

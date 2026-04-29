@@ -30,7 +30,7 @@ current.df = current.df.drop(columns=red_cols, errors="ignore")
 
 report_base = baseline.data_stats()
 
-
+# drift injection for Afghanistan
 if "Country" in current.df.columns:
     mask = current.df["Country"] == "Afghanistan"
     if "Hepatitis B" in current.df.columns:
@@ -61,6 +61,7 @@ current_afg = current.df[current.df["Country"] == target_country]
 
 if not base_afg.empty and not current_afg.empty:
     drift_data = []
+    drift_num = {}
     for feature in injected_features:
         if feature in base_afg.columns and feature in current_afg.columns:
             feature_psi, exp_p, act_p = baseline.psi_cal(
@@ -68,6 +69,27 @@ if not base_afg.empty and not current_afg.empty:
                 current_afg[feature].dropna(),
                 bins=10,
             )
+            ks_stat, ks_p_value = baseline.ks_cal(
+                base_afg[feature], current_afg[feature])
+            em_stat = baseline.em_cal(
+                base_afg[feature], current_afg[feature])
+            js_stat = baseline.js_cal(
+                base_afg[feature], current_afg[feature], bins=10)
+                    
+            print(
+                f"{feature} (PSI: {feature_psi:.4f}, KS: {ks_p_value:.4f},"
+                f"JS: {js_stat:.4f}, EM: {em_stat:.4f})"
+            )
+
+            drift_num[feature] = {
+                "PSI_Score": round(float(feature_psi), 4),
+                "KS_P_Value": round(float(ks_p_value), 4),
+                "EMD_Score": round(float(em_stat), 4),
+                "JS_Score": round(float(js_stat), 4),
+                "Old_Average": round(float(base_afg[feature].mean()), 2),
+                "New_Average": round(float(current_afg[feature].mean()), 2)
+            }
+
             drift_data.append(
                 {
                     "Feature": feature,
@@ -82,8 +104,12 @@ if not base_afg.empty and not current_afg.empty:
                     "Value": current_afg[feature].mean(),
                 }
             )
+    report_path = f"reports/{target_country}_drift_alarms.json"
+    with open(report_path, "w") as f:
+        json.dump(drift_num, f, indent=4)
     drift_df = pd.DataFrame(drift_data)
-    viz.plot_afghanistan_drift(drift_df, target_country)
+
+    #viz.plot_afghanistan_drift(drift_df, target_country)
 
 
 # Country with the highest average Adult Mortality and its associated features
@@ -162,6 +188,7 @@ for country in unique_country:
                     f"{col} (Base: {base_mean:.2f} -> Curr: {curr_mean:.2f})"
                 )
 
+"""
             # Format name safely for the file saving
             safe_col_name = col.replace(" ", "_")
             plot_id = f"{country}_{safe_col_name}"
@@ -180,7 +207,7 @@ for country in unique_country:
                     target_col=target_segment,
                     country=country,
                     status=country_status,
-                )
+                ) 
         elif pd.api.types.is_object_dtype(
             baseline_segment[col]
         ) and pd.api.types.is_object_dtype(current_segment[col]):
@@ -200,7 +227,7 @@ for country in unique_country:
                 )
 
 
-"""                # GENERATE THE DUAL-CHART DRIFT PLOT
+              # GENERATE THE DUAL-CHART DRIFT PLOT
                 viz.drift_plot(
                     baseline=baseline_segment[col].dropna(),
                     current=current_segment[col].dropna(),
@@ -212,4 +239,5 @@ for country in unique_country:
                 )
                 print(
                     f"Visual evidence saved: reports/plots/{plot_id}_psi.png\n"
-                )"""
+                )
+"""

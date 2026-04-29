@@ -1,8 +1,9 @@
 import numpy as np
-from scipy.stats import chi2_contingency
 import pandas as pd
 import os
 import json
+from scipy.stats import chi2_contingency, ks_2samp, wasserstein_distance
+from scipy.spatial.distance import jensenshannon
 
 
 class Profiling:
@@ -56,7 +57,6 @@ class Profiling:
 
             col_info = {
                 "dtype": str(series.dtype),
-                # fix this
                 "missing_values": float(series.isnull().sum()),
                 "unique_values": int(series.nunique()),
             }
@@ -136,10 +136,10 @@ class Profiling:
         )
 
         current_counts, _ = np.histogram(
-            baseline_col.dropna(), bins=breakpoints
+            current_col.dropna(), bins=breakpoints
         )
         baseline_counts, _ = np.histogram(
-            current_col.dropna(), bins=breakpoints
+            baseline_col.dropna(), bins=breakpoints
         )
 
         current_percents = current_counts / len(current_col.dropna())
@@ -154,7 +154,7 @@ class Profiling:
             * np.log(current_percents / baseline_percents)
         )
 
-        return psi_vals, current_percents, baseline_percents
+        return psi_vals, baseline_percents, current_percents
 
     def chi_cal(self, baseline_col, current_col):
 
@@ -170,3 +170,54 @@ class Profiling:
         )
 
         return chi2_stat, p_value
+
+    def ks_cal(self, baseline_col, current_col):
+        baseline_col = baseline_col.dropna()
+        current_col = current_col.dropna()
+
+        if len(baseline_col) == 0 or len(current_col) == 0:
+            return 0.0, 1.0
+
+        ks_stat, p_value = ks_2samp(baseline_col, current_col)
+
+        return ks_stat, p_value
+    
+    def em_cal(self, baseline_col, current_col):
+        baseline_col = baseline_col.dropna()
+        current_col = current_col.dropna()
+
+        if len(baseline_col) == 0 or len(current_col) == 0:
+            return 0.0
+
+        distance = wasserstein_distance(baseline_col, current_col)
+
+        return distance
+    
+    def js_cal(self, baseline_col, current_col, bins=10):
+        baseline_col = baseline_col.dropna()
+        current_col = current_col.dropna()
+
+        if len(baseline_col) == 0 or len(current_col) == 0:
+            return 0.0
+
+        breakpoints = np.unique(
+            np.percentile(baseline_col, np.linspace(0, 100, bins + 1))
+        )
+
+        baseline_counts, _ = np.histogram(
+            baseline_col.dropna(), bins=breakpoints
+        )
+        current_counts, _ = np.histogram(
+            current_col.dropna(), bins=breakpoints
+        )
+
+        baseline_probs = baseline_counts / len(baseline_col.dropna())
+        current_probs = current_counts / len(current_col.dropna())
+
+        # 1e-10 to prevent division by zero and log of zero
+        baseline_probs += 1e-10
+        current_probs += 1e-10
+
+        distance = jensenshannon(baseline_probs, current_probs)
+
+        return distance
