@@ -70,12 +70,13 @@ if not base_afg.empty and not current_afg.empty:
                 bins=10,
             )
             ks_stat, ks_p_value = baseline.ks_cal(
-                base_afg[feature], current_afg[feature])
-            em_stat = baseline.em_cal(
-                base_afg[feature], current_afg[feature])
+                base_afg[feature], current_afg[feature]
+            )
+            em_stat = baseline.em_cal(base_afg[feature], current_afg[feature])
             js_stat = baseline.js_cal(
-                base_afg[feature], current_afg[feature], bins=10)
-                    
+                base_afg[feature], current_afg[feature], bins=10
+            )
+
             print(
                 f"{feature} (PSI: {feature_psi:.4f}, KS: {ks_p_value:.4f},"
                 f"JS: {js_stat:.4f}, EM: {em_stat:.4f})"
@@ -87,7 +88,7 @@ if not base_afg.empty and not current_afg.empty:
                 "EMD_Score": round(float(em_stat), 4),
                 "JS_Score": round(float(js_stat), 4),
                 "Old_Average": round(float(base_afg[feature].mean()), 2),
-                "New_Average": round(float(current_afg[feature].mean()), 2)
+                "New_Average": round(float(current_afg[feature].mean()), 2),
             }
 
             drift_data.append(
@@ -109,7 +110,7 @@ if not base_afg.empty and not current_afg.empty:
         json.dump(drift_num, f, indent=4)
     drift_df = pd.DataFrame(drift_data)
 
-    #viz.plot_afghanistan_drift(drift_df, target_country)
+    # viz.plot_afghanistan_drift(drift_df, target_country)
 
 
 # Country with the highest average Adult Mortality and its associated features
@@ -207,7 +208,7 @@ for country in unique_country:
                     target_col=target_segment,
                     country=country,
                     status=country_status,
-                ) 
+                )
         elif pd.api.types.is_object_dtype(
             baseline_segment[col]
         ) and pd.api.types.is_object_dtype(current_segment[col]):

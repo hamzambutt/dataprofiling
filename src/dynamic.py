@@ -181,7 +181,7 @@ class Profiling:
         ks_stat, p_value = ks_2samp(baseline_col, current_col)
 
         return ks_stat, p_value
-    
+
     def em_cal(self, baseline_col, current_col):
         baseline_col = baseline_col.dropna()
         current_col = current_col.dropna()
@@ -192,7 +192,7 @@ class Profiling:
         distance = wasserstein_distance(baseline_col, current_col)
 
         return distance
-    
+
     def js_cal(self, baseline_col, current_col, bins=10):
         baseline_col = baseline_col.dropna()
         current_col = current_col.dropna()
