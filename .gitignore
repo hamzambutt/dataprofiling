@@ -6,7 +6,6 @@ venv/
 dont\ need/
 
 # Ignore Python cache
-__pycache__/
 *.pyc
 
 # Ignore generated plots and reports
@@ -18,3 +17,8 @@ __pycache__/
 
 # Ignore environment variables
 .env
+[flake8]
+exclude = 
+    .git,
+    __pycache__,
+    src/inject_drift.py
