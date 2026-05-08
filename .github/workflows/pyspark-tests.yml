@@ -31,5 +31,6 @@ jobs:
           # Ensures the runner uses the same Python version for Spark workers
           PYSPARK_PYTHON: python3
           PYSPARK_DRIVER_PYTHON: python3
+          SPARK_LOCAL_IP: "127.0.0.1"
         run: |
           python -m pytest Spark/test_spark.py
