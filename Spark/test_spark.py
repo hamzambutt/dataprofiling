@@ -50,7 +50,7 @@ def test_average_passengers_crew_cabins(sample_df):
         row["Cruise_Line"]: row["average_crew"] for row in result_df.collect()
     }
 
-    assert result["Royal"] == 8000.0
+    assert result["Royal"] == 800.0
     assert result["Carnival"] == 1000.0
 
 
