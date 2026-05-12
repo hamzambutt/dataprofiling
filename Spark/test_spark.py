@@ -1,6 +1,8 @@
 import pytest
 import sys
 import os
+import pandas as pd
+import pandas.testing as pdt
 from pyspark.sql import SparkSession
 from Spark.spark import (
     age_group_analysis,
@@ -46,63 +48,90 @@ def sample_df(spark):
 
 def test_average_passengers_crew_cabins(sample_df):
     result_df = average_passengers_crew_cabins(sample_df)
-    result = {
-        row["Cruise_Line"]: row["average_crew"] for row in result_df.collect()
-    }
-
-    assert result["Royal"] == 800.0
-    assert result["Carnival"] == 1000.0
+    result_pd = (
+        result_df.toPandas().sort_values("Cruise_Line").reset_index(drop=True)
+    )
+    expected_df = pd.DataFrame(
+        {
+            "Cruise_Line": ["Carnival", "Royal"],
+            "average_passengers": [3000.0, 1500.0],
+            "average_crew": [1000.0, 800.0],
+            "average_cabins": [1500.0, 750.0],
+        }
+    )
+    pdt.assert_frame_equal(result_pd, expected_df, check_exact=False)
 
 
 def test_high_crew_avg(sample_df):
     result_df = high_crew_avg(sample_df)
-    rows = result_df.collect()
-
-    assert len(rows) == 1
-    assert rows[0]["Cruise_Line"] == "Carnival"
-    assert rows[0]["average_crew"] == 1000.0
+    result_pd = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {"Cruise_Line": ["Carnival"], "average_crew": [1000.0]}
+    )
+    pdt.assert_frame_equal(result_pd, expected_df, check_exact=False)
 
 
 def test_top_5_CtoP_ratio(sample_df):
     result_df = top_5_CtoP_ratio(sample_df)
-    rows = result_df.collect()
-
-    assert rows[0]["Ship_name"] == "Ship A"
-    assert rows[0]["CtoP_ratio"] == 0.6
+    result_pd = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {
+            "Ship_name": ["Ship A", "Ship B", "Ship C"],
+            "Cruise_line": ["Royal", "Royal", "Carnival"],
+            "crew": [600, 1000, 1000],
+            "passengers": [1000, 2000, 3000],
+            "CtoP_ratio": [0.6, 0.5, 0.3333],
+        }
+    )
+    pdt.assert_frame_equal(
+        result_pd, expected_df, check_exact=False, check_like=True
+    )
 
 
 def test_age_group_analysis(sample_df):
     result_df = age_group_analysis(sample_df)
-    result = {
-        row["Age_Group"]: row["average_passengers"]
-        for row in result_df.collect()
-    }
-
-    assert result["0-10"] == 1000.0
-    assert result["11-20"] == 2000.0
-    assert result["21+ Years"] == 3000.0
+    result_pd = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {
+            "Age_Group": ["0-10", "11-20", "21+ Years"],
+            "average_passengers": [1000.0, 2000.0, 3000.0],
+            "average_crew": [600.0, 1000.0, 1000.0],
+        }
+    )
+    pdt.assert_frame_equal(result_pd, expected_df, check_exact=False)
 
 
 def test_corelation_analysis(sample_df):
     result_df = corelation_analysis(sample_df)
-    row = result_df.collect()[0]
-
-    assert "Tonnage_Crew_Correlation" in row.asDict()
-    assert "Passengers_Cabins_Correlation" in row.asDict()
+    result_pd = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {
+            "Tonnage_Crew_Correlation": [0.87],
+            "Passengers_Cabins_Correlation": [1.0],
+        }
+    )
+    pdt.assert_frame_equal(result_pd, expected_df, check_exact=False)
 
 
 def test_top_5_tonnage(sample_df):
     result_df = top_5_tonnage(sample_df)
-    rows = result_df.collect()
-
-    assert rows[0]["Ship_name"] == "Ship C"
-    assert rows[0]["Tonnage"] == 150.0
+    result_pd = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {
+            "Ship_name": ["Ship C", "Ship B", "Ship A"],
+            "Cruise_line": ["Carnival", "Royal", "Royal"],
+            "Tonnage": [150.0, 100.0, 50.0],
+        }
+    )
+    pdt.assert_frame_equal(
+        result_pd, expected_df, check_exact=False, check_like=True
+    )
 
 
 def test_high_pass_avg(sample_df):
     result_df = high_pass_avg(sample_df)
-    rows = result_df.collect()
-
-    assert len(rows) == 1
-    assert rows[0]["Cruise_Line"] == "Carnival"
-    assert rows[0]["average_passengers"] == 3000
+    result_df = result_df.toPandas()
+    expected_df = pd.DataFrame(
+        {"Cruise_Line": ["Carnival"], "average_passengers": [3000.0]}
+    )
+    pdt.assert_frame_equal(result_df, expected_df, check_exact=False)

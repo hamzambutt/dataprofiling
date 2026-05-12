@@ -64,7 +64,7 @@ def age_group_analysis(df):
     age_analysis = df.withColumn(
         "Age_Group",
         when(col("Age") <= 10, "0-10")
-        .when((col("Age") > 10) & (col("Age") <= 20), "11-20")
+        .when(col("Age").between(11, 20), "11-20")
         .otherwise("21+ Years"),
     )
 
@@ -102,3 +102,11 @@ if __name__ == "__main__":
         "data/cruise_dataset.csv", header=True, inferSchema=True
     )
     df.show(5)
+    print(average_passengers_crew_cabins(df).show())
+    print(high_crew_avg(df).show())
+    print(high_pass_avg(df).show())
+    print(top_5_CtoP_ratio(df).show())
+    print(top_5_tonnage(df).show())
+    print(age_group_analysis(df).show())
+    print(corelation_analysis(df).show())
+    spark.stop()

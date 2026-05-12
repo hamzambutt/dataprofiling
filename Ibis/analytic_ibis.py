@@ -59,7 +59,7 @@ def top_5_tonnage(t):
 def age_group_analysis(t):
     age_bucket = ibis.cases(
         (t["Age"] <= 10, "0-10"),
-        ((t["Age"] > 10) & (t["Age"] <= 20), "11-20"),
+        (t["Age"].between(11, 20), "11-20"),
         else_="21+ Years",
     )
     t_mut = t.mutate(Age_Group=age_bucket)
