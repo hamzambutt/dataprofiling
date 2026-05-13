@@ -2,7 +2,7 @@ import pytest
 import ibis
 import pandas as pd
 import pandas.testing as pdt
-from Ibis.analytic_ibis import (
+from project_ibis.analytic_ibis import (
     avg_pas_crew,
     high_crew_avg,
     high_pass_avg,
