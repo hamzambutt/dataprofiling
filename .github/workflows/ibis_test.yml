@@ -23,4 +23,4 @@ jobs:
       - name: Run Ibis Tests
         run: |
           # Point pytest directly to your new Ibis test file
-          python -m pytest project/test_ibis.py
+          python -m pytest project_ibis/test_ibis.py
